@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Old Village — Довідник</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{
+  --bg:#16100a; --card:#221a10; --card2:#2a2013; --line:#42341f;
+  --ink:#ead9b7; --dim:#a08a5f; --gold:#d9a94f; --warn:#e07a5f;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg); color:var(--ink);
+  font:16px/1.55 Georgia,'Times New Roman',serif;
+  background-image:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(217,169,79,.08),transparent),
+                   radial-gradient(ellipse 60% 40% at 90% 110%,rgba(217,169,79,.05),transparent);
+  min-height:100vh;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 14px 48px}
+header{padding:22px 0 10px;text-align:center}
+header h1{
+  font-family:'Cormorant',Georgia,serif;font-size:30px;font-weight:700;color:var(--gold);
+  letter-spacing:.5px;text-shadow:0 2px 12px rgba(217,169,79,.25);
+}
+header .sub{color:var(--dim);font-size:13px;font-style:italic}
+nav{
+  position:sticky;top:0;z-index:5;display:flex;gap:6px;overflow-x:auto;
+  padding:10px 0;background:linear-gradient(var(--bg) 82%,transparent);
+  scrollbar-width:none;
+}
+nav::-webkit-scrollbar{display:none}
+nav button{
+  flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--dim);
+  font:14px Georgia,serif;padding:8px 13px;border-radius:20px;cursor:pointer;white-space:nowrap;
+}
+nav button.on{background:var(--gold);border-color:var(--gold);color:#241a0e;font-weight:700}
+section{display:none;padding-top:8px}
+section.on{display:block}
+h3{font-family:'Cormorant',Georgia,serif;font-size:21px;color:var(--gold);margin:20px 0 8px}
+h4{font-family:'Cormorant',Georgia,serif;font-size:17px;color:var(--gold);margin:12px 0 6px}
+p{margin:8px 0}
+.dim{color:var(--dim)}
+.warn{color:var(--warn)}
+.center{text-align:center}
+.lvl{font-size:13px;color:var(--dim);font-weight:400;white-space:nowrap}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  overflow:hidden;margin:14px 0;box-shadow:0 4px 18px rgba(0,0,0,.35);
+}
+.card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;border-bottom:1px solid var(--line)}
+.cbody{padding:12px 14px 14px}
+.cbody h3{margin-top:2px}
+.grid{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:560px){.grid{grid-template-columns:1fr 1fr;gap:0 14px}}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:3px 9px;font-size:13.5px}
+.tw{overflow-x:auto;margin:6px 0 14px;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:var(--card)}
+table.narrow{max-width:340px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;background:var(--card2);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.num{white-space:nowrap;font-variant-numeric:tabular-nums}
+td.src{font-size:13px;color:var(--dim);min-width:150px}
+td.src .item,.use{font-size:13px}
+.use{margin-top:3px;color:var(--gold)}
+.item{white-space:nowrap}
+.search{
+  width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink);font:15px Georgia,serif;outline:none;margin-top:10px;
+}
+.search::placeholder{color:var(--dim)}
+footer{margin-top:34px;text-align:center;color:var(--dim);font-size:12px;font-style:italic}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><h1>🏘 Old Village</h1><div class="sub">Довідник</div></header>
+<nav><button data-t="locations" class="on">🗺 Локації</button><button data-t="bosses" class="">🐲 Боси</button><button data-t="items" class="">🎒 Предмети</button><button data-t="smith" class="">⚒️ Кузня</button><button data-t="alchemy" class="">🧪 Алхімія</button><button data-t="basics" class="">📜 Основи</button></nav>
+<section id="locations" class="on"><div class="card">
+      <img src="../img/loc-village.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🏘 Село Діброва <span class="lvl">з рівня 1</span></h3>
+        <p class="dim">Тихе село на краю королівства — серце життя героїв. Тут є крамниця, ринок, арена, цілитель і дошка завдань.</p>
+        
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-forest.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🌲 Темний ліс <span class="lvl">з рівня 1</span></h3>
+        <p class="dim">Прадавні дерева затуляють сонце. Між стовбурами нишпорять вовки, кабани та гобліни-розвідники.</p>
+        <h4>Мешканці</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Рів.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Досвід</th><th>🪙 Срібло</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Лісовий вовк</td><td class="num">1</td><td class="num">25</td><td class="num">5</td><td class="num">14</td><td class="num">3–8</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Вовча шкура</span> <span class="dim">45%</span><br><span class="item" style="color:#c9c4b8">⚪️ Мале зілля зцілення</span> <span class="dim">10%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">2%</span></td></tr><tr><td>Дикий кабан</td><td class="num">2</td><td class="num">38</td><td class="num">7</td><td class="num">20</td><td class="num">5–12</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Ікло кабана</span> <span class="dim">40%</span><br><span class="item" style="color:#c9c4b8">⚪️ Мале зілля зцілення</span> <span class="dim">10%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">2%</span></td></tr><tr><td>Лісовий павук</td><td class="num">3</td><td class="num">45</td><td class="num">9</td><td class="num">27</td><td class="num">7–15</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Павучий шовк</span> <span class="dim">35%</span><br><span class="item" style="color:#c9c4b8">⚪️ Дерев'яний кийок</span> <span class="dim">6%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">2%</span></td></tr><tr><td>Гоблін-розвідник</td><td class="num">4</td><td class="num">55</td><td class="num">11</td><td class="num">35</td><td class="num">10–22</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Вухо гобліна</span> <span class="dim">50%</span><br><span class="item" style="color:#c9c4b8">⚪️ Мисливський лук</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">2%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-caves.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🕳 Старі печери <span class="lvl">з рівня 4</span></h3>
+        <p class="dim">Покинуті шахти, де тепер хазяйнують гобліни та нежить. Кажуть, у глибині живе троль.</p>
+        <h4>Мешканці</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Рів.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Досвід</th><th>🪙 Срібло</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Печерний кажан</td><td class="num">4</td><td class="num">50</td><td class="num">12</td><td class="num">34</td><td class="num">8–18</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Крило кажана</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">3%</span></td></tr><tr><td>Гоблін-воїн</td><td class="num">5</td><td class="num">70</td><td class="num">14</td><td class="num">45</td><td class="num">12–26</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Вухо гобліна</span> <span class="dim">50%</span><br><span class="item" style="color:#c9c4b8">⚪️ Залізний меч</span> <span class="dim">6%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">3%</span></td></tr><tr><td>Скелет</td><td class="num">6</td><td class="num">85</td><td class="num">16</td><td class="num">55</td><td class="num">15–30</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Кістяний пил</span> <span class="dim">45%</span><br><span class="item" style="color:#8fc97a">🟢 Кольчуга</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">3%</span></td></tr><tr><td>Печерний троль</td><td class="num">8</td><td class="num">130</td><td class="num">20</td><td class="num">85</td><td class="num">25–50</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Шкура троля</span> <span class="dim">40%</span><br><span class="item" style="color:#8fc97a">🟢 Сталева сокира</span> <span class="dim">7%</span><br><span class="item" style="color:#8fc97a">🟢 Середнє зілля зцілення</span> <span class="dim">15%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">3%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-swamp.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🐸 Згубні болота <span class="lvl">з рівня 8</span></h3>
+        <p class="dim">Туман, трясовина й запах гнилі. Тут зникають навіть досвідчені мандрівники — а ті, хто повертається, приносять цінну есенцію.</p>
+        <h4>Мешканці</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Рів.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Досвід</th><th>🪙 Срібло</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Гігантська п'явка</td><td class="num">8</td><td class="num">110</td><td class="num">19</td><td class="num">75</td><td class="num">18–38</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Слиз п'явки</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">3%</span></td></tr><tr><td>Упир</td><td class="num">10</td><td class="num">150</td><td class="num">24</td><td class="num">100</td><td class="num">25–55</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Кіготь упиря</span> <span class="dim">45%</span><br><span class="item" style="color:#8fc97a">🟢 Срібна шабля</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">3%</span></td></tr><tr><td>Болотна відьма</td><td class="num">11</td><td class="num">160</td><td class="num">28</td><td class="num">120</td><td class="num">30–65</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Болотна есенція</span> <span class="dim">35%</span><br><span class="item" style="color:#7aa8e0">🔵 Велике зілля зцілення</span> <span class="dim">12%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">3%</span></td></tr><tr><td>Болотний жах</td><td class="num">13</td><td class="num">220</td><td class="num">32</td><td class="num">160</td><td class="num">45–90</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Болотна есенція</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Клинок лицаря</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">3%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-mountains.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>⛰ Гірський перевал <span class="lvl">з рівня 13</span></h3>
+        <p class="dim">Крижаний вітер і прямовисні скелі. На перевалі полюють гарпії, а з каменю здіймаються прадавні големи.</p>
+        <h4>Мешканці</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Рів.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Досвід</th><th>🪙 Срібло</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Гірський вовк</td><td class="num">13</td><td class="num">200</td><td class="num">33</td><td class="num">150</td><td class="num">40–80</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Вовча шкура</span> <span class="dim">60%</span><br><span class="item" style="color:#8fc97a">🟢 Середнє зілля зцілення</span> <span class="dim">15%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">4%</span></td></tr><tr><td>Гарпія</td><td class="num">14</td><td class="num">220</td><td class="num">37</td><td class="num">175</td><td class="num">45–95</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Перо гарпії</span> <span class="dim">50%</span><br><span class="item" style="color:#8fc97a">🟢 Лускатий обладунок</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">4%</span></td></tr><tr><td>Кам'яний голем</td><td class="num">16</td><td class="num">300</td><td class="num">40</td><td class="num">220</td><td class="num">60–120</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Ядро голема</span> <span class="dim">35%</span><br><span class="item" style="color:#7aa8e0">🔵 Бойовий молот</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">4%</span></td></tr><tr><td>Огр</td><td class="num">18</td><td class="num">360</td><td class="num">48</td><td class="num">280</td><td class="num">80–160</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Зуб огра</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Латний обладунок</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Велике зілля зцілення</span> <span class="dim">15%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">4%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-castle.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🏰 Проклятий замок <span class="lvl">з рівня 18</span></h3>
+        <p class="dim">Резиденція полеглого лорда-вампіра. Лише найсильніші герої наважуються увійти в ці ворота.</p>
+        <h4>Мешканці</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Рів.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Досвід</th><th>🪙 Срібло</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Проклятий лицар</td><td class="num">19</td><td class="num">380</td><td class="num">52</td><td class="num">320</td><td class="num">90–180</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Проклята емблема</span> <span class="dim">45%</span><br><span class="item" style="color:#7aa8e0">🔵 Клинок лицаря</span> <span class="dim">8%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">5%</span></td></tr><tr><td>Привид</td><td class="num">21</td><td class="num">420</td><td class="num">60</td><td class="num">380</td><td class="num">100–210</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Проклята емблема</span> <span class="dim">50%</span><br><span class="item" style="color:#bd8ce0">🟣 Кинджал тіней</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">5%</span></td></tr><tr><td>Горгулья</td><td class="num">23</td><td class="num">500</td><td class="num">65</td><td class="num">450</td><td class="num">120–240</td><td class="src"><span class="item" style="color:#bd8ce0">🟣 Уламок кристала</span> <span class="dim">30%</span><br><span class="item" style="color:#bd8ce0">🟣 Зачарована мантія</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">5%</span></td></tr><tr><td>Лорд-вампір</td><td class="num">25</td><td class="num">600</td><td class="num">75</td><td class="num">600</td><td class="num">160–320</td><td class="src"><span class="item" style="color:#bd8ce0">🟣 Ікло вампіра</span> <span class="dim">40%</span><br><span class="item" style="color:#bd8ce0">🟣 Полум'яний меч</span> <span class="dim">5%</span><br><span class="item" style="color:#e8a755">🟠 Стародавня реліквія</span> <span class="dim">2%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">5%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-catacombs.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>⚰️ Забуті катакомби <span class="lvl">з рівня 25</span></h3>
+        <p class="dim">Під старим цвинтарем тягнуться нескінченні галереї. Шурхотить могильний прах, а в темряві гримлять кістки давно полеглих лицарів.</p>
+        <h4>Мешканці</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Рів.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Досвід</th><th>🪙 Срібло</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Упир склепу</td><td class="num">26</td><td class="num">680</td><td class="num">78</td><td class="num">700</td><td class="num">180–360</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Могильний прах</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Велике зілля зцілення</span> <span class="dim">8%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">6%</span></td></tr><tr><td>Кістяний лицар</td><td class="num">28</td><td class="num">780</td><td class="num">84</td><td class="num">820</td><td class="num">210–420</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Могильний прах</span> <span class="dim">40%</span><br><span class="item" style="color:#8fc97a">🟢 Кістка ліча</span> <span class="dim">25%</span><br><span class="item" style="color:#bd8ce0">🟣 Кістяний обладунок</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">6%</span></td></tr><tr><td>Могильний привид</td><td class="num">29</td><td class="num">850</td><td class="num">88</td><td class="num">900</td><td class="num">230–460</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Кістка ліча</span> <span class="dim">45%</span><br><span class="item" style="color:#bd8ce0">🟣 Обсидіановий клинок</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">6%</span></td></tr><tr><td>Прислужник ліча</td><td class="num">31</td><td class="num">950</td><td class="num">93</td><td class="num">1050</td><td class="num">260–520</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Кістка ліча</span> <span class="dim">50%</span><br><span class="item" style="color:#bd8ce0">🟣 Обсидіановий клинок</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Велике зілля зцілення</span> <span class="dim">12%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">6%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-wastes.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🌋 Випалені пустки <span class="lvl">з рівня 31</span></h3>
+        <p class="dim">Випалена дощенту земля дихає жаром. Серед попелу нишпорять гончі, а з тріщин виривається підземне полум'я.</p>
+        <h4>Мешканці</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Рів.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Досвід</th><th>🪙 Срібло</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Попеляста гонча</td><td class="num">32</td><td class="num">1050</td><td class="num">96</td><td class="num">1150</td><td class="num">280–560</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Тліючий уламок</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">7%</span></td></tr><tr><td>Вогняний біс</td><td class="num">34</td><td class="num">1200</td><td class="num">102</td><td class="num">1350</td><td class="num">310–620</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Тліючий уламок</span> <span class="dim">45%</span><br><span class="item" style="color:#7aa8e0">🔵 Ріг демона</span> <span class="dim">20%</span><br><span class="item" style="color:#bd8ce0">🟣 Величне зілля зцілення</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">7%</span></td></tr><tr><td>Магмовий голем</td><td class="num">36</td><td class="num">1300</td><td class="num">108</td><td class="num">1550</td><td class="num">340–680</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Ріг демона</span> <span class="dim">35%</span><br><span class="item" style="color:#bd8ce0">🟣 Пекельна кольчуга</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">7%</span></td></tr><tr><td>Полум'яний джин</td><td class="num">38</td><td class="num">1350</td><td class="num">114</td><td class="num">1800</td><td class="num">380–760</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Ріг демона</span> <span class="dim">45%</span><br><span class="item" style="color:#bd8ce0">🟣 Демонічний тесак</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">7%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-peaks.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🏔 Крижані піки <span class="lvl">з рівня 38</span></h3>
+        <p class="dim">Вічна хуртовина виє між крижаними скелями. Мороз пробирає до кісток, а в білій імлі миготять крилаті тіні.</p>
+        <h4>Мешканці</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Рів.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Досвід</th><th>🪙 Срібло</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Морозний вовк</td><td class="num">39</td><td class="num">1500</td><td class="num">117</td><td class="num">2000</td><td class="num">420–840</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Вічний лід</span> <span class="dim">50%</span><br><span class="item" style="color:#bd8ce0">🟣 Величне зілля зцілення</span> <span class="dim">6%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">8%</span></td></tr><tr><td>Крижана тінь</td><td class="num">41</td><td class="num">1650</td><td class="num">123</td><td class="num">2250</td><td class="num">460–920</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Вічний лід</span> <span class="dim">45%</span><br><span class="item" style="color:#e8a755">🟠 Льодовикова броня</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">8%</span></td></tr><tr><td>Сніговий троль</td><td class="num">42</td><td class="num">1750</td><td class="num">126</td><td class="num">2450</td><td class="num">500–1000</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Вічний лід</span> <span class="dim">40%</span><br><span class="item" style="color:#e8a755">🟠 Сокира вічної зими</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">8%</span></td></tr><tr><td>Крижана виверна</td><td class="num">44</td><td class="num">1900</td><td class="num">132</td><td class="num">2750</td><td class="num">550–1100</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Луска виверни</span> <span class="dim">50%</span><br><span class="item" style="color:#e8a755">🟠 Льодовикова броня</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">8%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-rift.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🌀 Драконів розлам <span class="lvl">з рівня 44</span></h3>
+        <p class="dim">Розколота земля, з якої сочиться прадавня магія. Тут гніздяться дракони — і лише найвеличніші герої повертаються звідси живими.</p>
+        <h4>Мешканці</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Рів.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Досвід</th><th>🪙 Срібло</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Сталкер розламу</td><td class="num">45</td><td class="num">2100</td><td class="num">135</td><td class="num">3000</td><td class="num">600–1200</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Драконяча кров</span> <span class="dim">40%</span><br><span class="item" style="color:#bd8ce0">🟣 Кристал розламу</span> <span class="dim">12%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">10%</span></td></tr><tr><td>Юний дрейк</td><td class="num">47</td><td class="num">2300</td><td class="num">141</td><td class="num">3400</td><td class="num">650–1300</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Драконяча кров</span> <span class="dim">45%</span><br><span class="item" style="color:#7aa8e0">🔵 Луска виверни</span> <span class="dim">30%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">10%</span></td></tr><tr><td>Драконів жрець</td><td class="num">48</td><td class="num">2500</td><td class="num">144</td><td class="num">3700</td><td class="num">700–1400</td><td class="src"><span class="item" style="color:#bd8ce0">🟣 Кристал розламу</span> <span class="dim">30%</span><br><span class="item" style="color:#e8a755">🟠 Клинок Володаря драконів</span> <span class="dim">2%</span><br><span class="item" style="color:#bd8ce0">🟣 Величне зілля зцілення</span> <span class="dim">10%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">10%</span></td></tr><tr><td>Прадавній дракон</td><td class="num">50</td><td class="num">2900</td><td class="num">150</td><td class="num">4300</td><td class="num">800–1600</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Драконяча кров</span> <span class="dim">50%</span><br><span class="item" style="color:#bd8ce0">🟣 Кристал розламу</span> <span class="dim">25%</span><br><span class="item" style="color:#e8a755">🟠 Клинок Володаря драконів</span> <span class="dim">3%</span><br><span class="item" style="color:#e8a755">🟠 Лати Володаря драконів</span> <span class="dim">3%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> <span class="dim">12%</span></td></tr></tbody></table></div>
+      </div>
+    </div></section>
+<section id="bosses" class=""><div class="card">
+      <img src="../img/boss-ancient_ent.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🌳 Прадавній ент</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоров'я: <b>3 000</b></span>
+          <span class="chip">⚔️ Атака: <b>20</b></span>
+          <span class="chip">🛡 Захист: <b>5</b></span>
+        </div>
+        <p>💰 Спільна нагорода: <b>🪙 1 500</b> + <b>✨ 2 000</b> <span class="dim">— ділиться за завданою шкодою</span></p>
+        <p>🏆 Трофеї топ-3 за шкодою:<br>1. <span class="item" style="color:#8fc97a">🟢 Сталева сокира</span><br>2. <span class="item" style="color:#7aa8e0">🔵 Велике зілля зцілення</span><br>3. <span class="item" style="color:#8fc97a">🟢 Середнє зілля зцілення</span></p>
+        <p class="dim">Самоцвіти топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-goblin_king.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>👺 Король гоблінів</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоров'я: <b>6 000</b></span>
+          <span class="chip">⚔️ Атака: <b>30</b></span>
+          <span class="chip">🛡 Захист: <b>8</b></span>
+        </div>
+        <p>💰 Спільна нагорода: <b>🪙 3 000</b> + <b>✨ 4 500</b> <span class="dim">— ділиться за завданою шкодою</span></p>
+        <p>🏆 Трофеї топ-3 за шкодою:<br>1. <span class="item" style="color:#7aa8e0">🔵 Клинок лицаря</span><br>2. <span class="item" style="color:#8fc97a">🟢 Кольчуга</span><br>3. <span class="item" style="color:#7aa8e0">🔵 Велике зілля зцілення</span></p>
+        <p class="dim">Самоцвіти топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-swamp_leviathan.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🐉 Болотний левіафан</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоров'я: <b>12 000</b></span>
+          <span class="chip">⚔️ Атака: <b>45</b></span>
+          <span class="chip">🛡 Захист: <b>12</b></span>
+        </div>
+        <p>💰 Спільна нагорода: <b>🪙 6 000</b> + <b>✨ 9 000</b> <span class="dim">— ділиться за завданою шкодою</span></p>
+        <p>🏆 Трофеї топ-3 за шкодою:<br>1. <span class="item" style="color:#7aa8e0">🔵 Бойовий молот</span><br>2. <span class="item" style="color:#7aa8e0">🔵 Латний обладунок</span><br>3. <span class="item" style="color:#8fc97a">🟢 Срібна шабля</span></p>
+        <p class="dim">Самоцвіти топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-frost_giant.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🧊 Крижаний велет</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоров'я: <b>20 000</b></span>
+          <span class="chip">⚔️ Атака: <b>60</b></span>
+          <span class="chip">🛡 Захист: <b>18</b></span>
+        </div>
+        <p>💰 Спільна нагорода: <b>🪙 10 000</b> + <b>✨ 16 000</b> <span class="dim">— ділиться за завданою шкодою</span></p>
+        <p>🏆 Трофеї топ-3 за шкодою:<br>1. <span class="item" style="color:#bd8ce0">🟣 Полум'яний меч</span><br>2. <span class="item" style="color:#bd8ce0">🟣 Зачарована мантія</span><br>3. <span class="item" style="color:#7aa8e0">🔵 Бойовий молот</span></p>
+        <p class="dim">Самоцвіти топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-ash_dragon.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🔥 Дракон Попелястої гори</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоров'я: <b>35 000</b></span>
+          <span class="chip">⚔️ Атака: <b>80</b></span>
+          <span class="chip">🛡 Захист: <b>25</b></span>
+        </div>
+        <p>💰 Спільна нагорода: <b>🪙 20 000</b> + <b>✨ 30 000</b> <span class="dim">— ділиться за завданою шкодою</span></p>
+        <p>🏆 Трофеї топ-3 за шкодою:<br>1. <span class="item" style="color:#e8a755">🟠 Драконобій</span><br>2. <span class="item" style="color:#e8a755">🟠 Обладунок з драконячої луски</span><br>3. <span class="item" style="color:#bd8ce0">🟣 Кинджал тіней</span></p>
+        <p class="dim">Самоцвіти топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-lich_emperor.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>💀 Імператор-лич</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоров'я: <b>55 000</b></span>
+          <span class="chip">⚔️ Атака: <b>100</b></span>
+          <span class="chip">🛡 Захист: <b>32</b></span>
+        </div>
+        <p>💰 Спільна нагорода: <b>🪙 32 000</b> + <b>✨ 50 000</b> <span class="dim">— ділиться за завданою шкодою</span></p>
+        <p>🏆 Трофеї топ-3 за шкодою:<br>1. <span class="item" style="color:#bd8ce0">🟣 Обсидіановий клинок</span><br>2. <span class="item" style="color:#bd8ce0">🟣 Кістяний обладунок</span><br>3. <span class="item" style="color:#bd8ce0">🟣 Величне зілля зцілення</span></p>
+        <p class="dim">Самоцвіти топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-infernal_overlord.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>😈 Пекельний владика</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоров'я: <b>85 000</b></span>
+          <span class="chip">⚔️ Атака: <b>125</b></span>
+          <span class="chip">🛡 Захист: <b>40</b></span>
+        </div>
+        <p>💰 Спільна нагорода: <b>🪙 50 000</b> + <b>✨ 80 000</b> <span class="dim">— ділиться за завданою шкодою</span></p>
+        <p>🏆 Трофеї топ-3 за шкодою:<br>1. <span class="item" style="color:#bd8ce0">🟣 Демонічний тесак</span><br>2. <span class="item" style="color:#bd8ce0">🟣 Пекельна кольчуга</span><br>3. <span class="item" style="color:#bd8ce0">🟣 Величне зілля зцілення</span></p>
+        <p class="dim">Самоцвіти топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-frost_empress.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>❄️ Крижана імператриця</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоров'я: <b>130 000</b></span>
+          <span class="chip">⚔️ Атака: <b>155</b></span>
+          <span class="chip">🛡 Захист: <b>50</b></span>
+        </div>
+        <p>💰 Спільна нагорода: <b>🪙 75 000</b> + <b>✨ 125 000</b> <span class="dim">— ділиться за завданою шкодою</span></p>
+        <p>🏆 Трофеї топ-3 за шкодою:<br>1. <span class="item" style="color:#e8a755">🟠 Сокира вічної зими</span><br>2. <span class="item" style="color:#e8a755">🟠 Льодовикова броня</span><br>3. <span class="item" style="color:#bd8ce0">🟣 Величне зілля зцілення</span></p>
+        <p class="dim">Самоцвіти топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-dragonlord.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>👑 Володар драконів</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоров'я: <b>200 000</b></span>
+          <span class="chip">⚔️ Атака: <b>190</b></span>
+          <span class="chip">🛡 Захист: <b>62</b></span>
+        </div>
+        <p>💰 Спільна нагорода: <b>🪙 120 000</b> + <b>✨ 200 000</b> <span class="dim">— ділиться за завданою шкодою</span></p>
+        <p>🏆 Трофеї топ-3 за шкодою:<br>1. <span class="item" style="color:#e8a755">🟠 Клинок Володаря драконів</span><br>2. <span class="item" style="color:#e8a755">🟠 Лати Володаря драконів</span><br>3. <span class="item" style="color:#bd8ce0">🟣 Кристал розламу</span></p>
+        <p class="dim">Самоцвіти топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><p class="dim center">⏳ Наступний бос — через 30 хв після перемоги</p></section>
+<section id="items" class="">
+    <input class="search" id="itemSearch" type="search" placeholder="🔍 Пошук предметів…">
+    <h3>🗡 Зброя</h3><div class="tw"><table><thead><tr><th>Предмет</th><th>Характеристика</th><th>🪙 Ціна</th><th>Де здобути</th></tr></thead><tbody>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Іржавий меч</span></td>
+      <td>⚔️ Атака +2</td>
+      <td class="num">15</td>
+      <td class="src">🛒 крамниця</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Дерев'яний кийок</span></td>
+      <td>⚔️ Атака +3</td>
+      <td class="num">25</td>
+      <td class="src">Лісовий павук <span class="dim">6%</span> · 🛒 крамниця</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Мисливський лук</span></td>
+      <td>⚔️ Атака +4</td>
+      <td class="num">45</td>
+      <td class="src">Гоблін-розвідник <span class="dim">5%</span> · 🛒 крамниця</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Залізний меч</span></td>
+      <td>⚔️ Атака +6</td>
+      <td class="num">90</td>
+      <td class="src">Гоблін-воїн <span class="dim">6%</span> · 🛒 крамниця</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Сталева сокира</span></td>
+      <td>⚔️ Атака +9</td>
+      <td class="num">180</td>
+      <td class="src">Печерний троль <span class="dim">7%</span> · 🛒 крамниця · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Срібна шабля</span></td>
+      <td>⚔️ Атака +12</td>
+      <td class="num">320</td>
+      <td class="src">Упир <span class="dim">5%</span> · 🛒 крамниця · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Клинок лицаря</span></td>
+      <td>⚔️ Атака +16</td>
+      <td class="num">650</td>
+      <td class="src">Болотний жах <span class="dim">5%</span> · Проклятий лицар <span class="dim">8%</span> · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Бойовий молот</span></td>
+      <td>⚔️ Атака +20</td>
+      <td class="num">1000</td>
+      <td class="src">Кам'яний голем <span class="dim">5%</span> · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Полум'яний меч</span></td>
+      <td>⚔️ Атака +26</td>
+      <td class="num">2200</td>
+      <td class="src">Лорд-вампір <span class="dim">5%</span> · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Кинджал тіней</span></td>
+      <td>⚔️ Атака +30</td>
+      <td class="num">3200</td>
+      <td class="src">Привид <span class="dim">4%</span> · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Драконобій</span></td>
+      <td>⚔️ Атака +40</td>
+      <td class="num">8000</td>
+      <td class="src">🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Обсидіановий клинок</span></td>
+      <td>⚔️ Атака +50</td>
+      <td class="num">14000</td>
+      <td class="src">Могильний привид <span class="dim">4%</span> · Прислужник ліча <span class="dim">5%</span> · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Демонічний тесак</span></td>
+      <td>⚔️ Атака +62</td>
+      <td class="num">24000</td>
+      <td class="src">Полум'яний джин <span class="dim">5%</span> · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Сокира вічної зими</span></td>
+      <td>⚔️ Атака +75</td>
+      <td class="num">38000</td>
+      <td class="src">Сніговий троль <span class="dim">5%</span> · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Клинок Володаря драконів</span></td>
+      <td>⚔️ Атака +90</td>
+      <td class="num">65000</td>
+      <td class="src">Драконів жрець <span class="dim">2%</span> · Прадавній дракон <span class="dim">3%</span> · 🐲 бос (топ-3)</td>
+    </tr></tbody></table></div>
+    <h3>🥋 Броня</h3><div class="tw"><table><thead><tr><th>Предмет</th><th>Характеристика</th><th>🪙 Ціна</th><th>Де здобути</th></tr></thead><tbody>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Полотняна сорочка</span></td>
+      <td>🛡 Захист +1</td>
+      <td class="num">12</td>
+      <td class="src">🛒 крамниця</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Шкіряний обладунок</span></td>
+      <td>🛡 Захист +3</td>
+      <td class="num">60</td>
+      <td class="src">🛒 крамниця</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Кольчуга</span></td>
+      <td>🛡 Захист +6</td>
+      <td class="num">200</td>
+      <td class="src">Скелет <span class="dim">4%</span> · 🛒 крамниця · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Лускатий обладунок</span></td>
+      <td>🛡 Захист +8</td>
+      <td class="num">380</td>
+      <td class="src">Гарпія <span class="dim">5%</span> · 🛒 крамниця</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Латний обладунок</span></td>
+      <td>🛡 Захист +12</td>
+      <td class="num">800</td>
+      <td class="src">Огр <span class="dim">5%</span> · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Зачарована мантія</span></td>
+      <td>🛡 Захист +16</td>
+      <td class="num">2500</td>
+      <td class="src">Горгулья <span class="dim">4%</span> · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Обладунок з драконячої луски</span></td>
+      <td>🛡 Захист +24</td>
+      <td class="num">9000</td>
+      <td class="src">🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Кістяний обладунок</span></td>
+      <td>🛡 Захист +30</td>
+      <td class="num">14000</td>
+      <td class="src">Кістяний лицар <span class="dim">4%</span> · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Пекельна кольчуга</span></td>
+      <td>🛡 Захист +37</td>
+      <td class="num">23000</td>
+      <td class="src">Магмовий голем <span class="dim">4%</span> · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Льодовикова броня</span></td>
+      <td>🛡 Захист +45</td>
+      <td class="num">36000</td>
+      <td class="src">Крижана тінь <span class="dim">4%</span> · Крижана виверна <span class="dim">4%</span> · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Лати Володаря драконів</span></td>
+      <td>🛡 Захист +54</td>
+      <td class="num">60000</td>
+      <td class="src">Прадавній дракон <span class="dim">3%</span> · 🐲 бос (топ-3)</td>
+    </tr></tbody></table></div>
+    <h3>🧪 Зілля</h3><div class="tw"><table><thead><tr><th>Предмет</th><th>Характеристика</th><th>🪙 Ціна</th><th>Де здобути</th></tr></thead><tbody>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Мале зілля зцілення</span></td>
+      <td>❤️ Лікує 30</td>
+      <td class="num">10</td>
+      <td class="src">Лісовий вовк <span class="dim">10%</span> · Дикий кабан <span class="dim">10%</span> · 🛒 крамниця</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Середнє зілля зцілення</span></td>
+      <td>❤️ Лікує 90</td>
+      <td class="num">35</td>
+      <td class="src">Печерний троль <span class="dim">15%</span> · Гірський вовк <span class="dim">15%</span> · 🛒 крамниця · ⚗️ алхімік · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Велике зілля зцілення</span></td>
+      <td>❤️ Лікує 250</td>
+      <td class="num">110</td>
+      <td class="src">Болотна відьма <span class="dim">12%</span> · Огр <span class="dim">15%</span> · Упир склепу <span class="dim">8%</span> · Прислужник ліча <span class="dim">12%</span> · 🛒 крамниця · ⚗️ алхімік · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Величне зілля зцілення</span></td>
+      <td>❤️ Лікує 600</td>
+      <td class="num">300</td>
+      <td class="src">Вогняний біс <span class="dim">5%</span> · Морозний вовк <span class="dim">6%</span> · Драконів жрець <span class="dim">10%</span> · 🛒 крамниця · ⚗️ алхімік · 🐲 бос (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Зілля сили</span></td>
+      <td>+25% атаки на 5 боїв <span class="dim">(крім арени)</span></td>
+      <td class="num">60</td>
+      <td class="src">🛒 крамниця · ⚗️ алхімік</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Зілля кам'яної шкіри</span></td>
+      <td>+25% захисту на 5 боїв <span class="dim">(крім арени)</span></td>
+      <td class="num">60</td>
+      <td class="src">🛒 крамниця · ⚗️ алхімік</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Зілля люті</span></td>
+      <td>шанс криту 25% на 5 боїв <span class="dim">(крім арени)</span></td>
+      <td class="num">90</td>
+      <td class="src">🛒 крамниця · ⚗️ алхімік</td>
+    </tr></tbody></table></div>
+    <h3>📦 Матеріали</h3><div class="tw"><table><thead><tr><th>Предмет</th><th>Характеристика</th><th>🪙 Ціна</th><th>Де здобути</th></tr></thead><tbody>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span></td>
+      <td>—</td>
+      <td class="num">40</td>
+      <td class="src">Лісовий вовк <span class="dim">2%</span> · Дикий кабан <span class="dim">2%</span> · Лісовий павук <span class="dim">2%</span> · Гоблін-розвідник <span class="dim">2%</span> · Печерний кажан <span class="dim">3%</span> · Гоблін-воїн <span class="dim">3%</span> · Скелет <span class="dim">3%</span> · Печерний троль <span class="dim">3%</span> · Гігантська п'явка <span class="dim">3%</span> · Упир <span class="dim">3%</span> · Болотна відьма <span class="dim">3%</span> · Болотний жах <span class="dim">3%</span> · Гірський вовк <span class="dim">4%</span> · Гарпія <span class="dim">4%</span> · Кам'яний голем <span class="dim">4%</span> · Огр <span class="dim">4%</span> · Проклятий лицар <span class="dim">5%</span> · Привид <span class="dim">5%</span> · Горгулья <span class="dim">5%</span> · Лорд-вампір <span class="dim">5%</span> · Упир склепу <span class="dim">6%</span> · Кістяний лицар <span class="dim">6%</span> · Могильний привид <span class="dim">6%</span> · Прислужник ліча <span class="dim">6%</span> · Попеляста гонча <span class="dim">7%</span> · Вогняний біс <span class="dim">7%</span> · Магмовий голем <span class="dim">7%</span> · Полум'яний джин <span class="dim">7%</span> · Морозний вовк <span class="dim">8%</span> · Крижана тінь <span class="dim">8%</span> · Сніговий троль <span class="dim">8%</span> · Крижана виверна <span class="dim">8%</span> · Сталкер розламу <span class="dim">10%</span> · Юний дрейк <span class="dim">10%</span> · Драконів жрець <span class="dim">10%</span> · Прадавній дракон <span class="dim">12%</span> · ⚗️ алхімік · 🐲 бос (топ-3)<div class="use">→ ⚒️ заточування в коваля</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Вовча шкура</span></td>
+      <td>—</td>
+      <td class="num">6</td>
+      <td class="src">Лісовий вовк <span class="dim">45%</span> · Гірський вовк <span class="dim">60%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Ікло кабана</span></td>
+      <td>—</td>
+      <td class="num">7</td>
+      <td class="src">Дикий кабан <span class="dim">40%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Павучий шовк</span></td>
+      <td>—</td>
+      <td class="num">14</td>
+      <td class="src">Лісовий павук <span class="dim">35%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Вухо гобліна</span></td>
+      <td>—</td>
+      <td class="num">5</td>
+      <td class="src">Гоблін-розвідник <span class="dim">50%</span> · Гоблін-воїн <span class="dim">50%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Крило кажана</span></td>
+      <td>—</td>
+      <td class="num">8</td>
+      <td class="src">Печерний кажан <span class="dim">50%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Кістяний пил</span></td>
+      <td>—</td>
+      <td class="num">18</td>
+      <td class="src">Скелет <span class="dim">45%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Шкура троля</span></td>
+      <td>—</td>
+      <td class="num">60</td>
+      <td class="src">Печерний троль <span class="dim">40%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Слиз п'явки</span></td>
+      <td>—</td>
+      <td class="num">10</td>
+      <td class="src">Гігантська п'явка <span class="dim">50%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Кіготь упиря</span></td>
+      <td>—</td>
+      <td class="num">25</td>
+      <td class="src">Упир <span class="dim">45%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Болотна есенція</span></td>
+      <td>—</td>
+      <td class="num">70</td>
+      <td class="src">Болотна відьма <span class="dim">35%</span> · Болотний жах <span class="dim">50%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Перо гарпії</span></td>
+      <td>—</td>
+      <td class="num">30</td>
+      <td class="src">Гарпія <span class="dim">50%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Ядро голема</span></td>
+      <td>—</td>
+      <td class="num">90</td>
+      <td class="src">Кам'яний голем <span class="dim">35%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Зуб огра</span></td>
+      <td>—</td>
+      <td class="num">35</td>
+      <td class="src">Огр <span class="dim">50%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Проклята емблема</span></td>
+      <td>—</td>
+      <td class="num">120</td>
+      <td class="src">Проклятий лицар <span class="dim">45%</span> · Привид <span class="dim">50%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Ікло вампіра</span></td>
+      <td>—</td>
+      <td class="num">250</td>
+      <td class="src">Лорд-вампір <span class="dim">40%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Уламок кристала</span></td>
+      <td>—</td>
+      <td class="num">300</td>
+      <td class="src">Горгулья <span class="dim">30%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Стародавня реліквія</span></td>
+      <td>—</td>
+      <td class="num">1000</td>
+      <td class="src">Лорд-вампір <span class="dim">2%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Могильний прах</span></td>
+      <td>—</td>
+      <td class="num">22</td>
+      <td class="src">Упир склепу <span class="dim">50%</span> · Кістяний лицар <span class="dim">40%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Кістка ліча</span></td>
+      <td>—</td>
+      <td class="num">45</td>
+      <td class="src">Кістяний лицар <span class="dim">25%</span> · Могильний привид <span class="dim">45%</span> · Прислужник ліча <span class="dim">50%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Тліючий уламок</span></td>
+      <td>—</td>
+      <td class="num">60</td>
+      <td class="src">Попеляста гонча <span class="dim">50%</span> · Вогняний біс <span class="dim">45%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Ріг демона</span></td>
+      <td>—</td>
+      <td class="num">110</td>
+      <td class="src">Вогняний біс <span class="dim">20%</span> · Магмовий голем <span class="dim">35%</span> · Полум'яний джин <span class="dim">45%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Вічний лід</span></td>
+      <td>—</td>
+      <td class="num">90</td>
+      <td class="src">Морозний вовк <span class="dim">50%</span> · Крижана тінь <span class="dim">45%</span> · Сніговий троль <span class="dim">40%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Луска виверни</span></td>
+      <td>—</td>
+      <td class="num">160</td>
+      <td class="src">Крижана виверна <span class="dim">50%</span> · Юний дрейк <span class="dim">30%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Драконяча кров</span></td>
+      <td>—</td>
+      <td class="num">220</td>
+      <td class="src">Сталкер розламу <span class="dim">40%</span> · Юний дрейк <span class="dim">45%</span> · Прадавній дракон <span class="dim">50%</span><div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Кристал розламу</span></td>
+      <td>—</td>
+      <td class="num">400</td>
+      <td class="src">Сталкер розламу <span class="dim">12%</span> · Драконів жрець <span class="dim">30%</span> · Прадавній дракон <span class="dim">25%</span> · 🐲 бос (топ-3)<div class="use">→ ⚗️ рецепти алхіміка</div></td>
+    </tr></tbody></table></div></section>
+<section id="smith" class="">
+    <p>Коваль на ринковій площі гострить екіпіровану зброю та броню — до <b>+12</b>. Кожен рівень заточування дає <b>+4%</b> до характеристики предмета (мінімум +1 за кожні 3 рівні).</p>
+    <p>Вартість спроби: <b>срібло</b> (12% ціни предмета × цільовий рівень) + <b>самоцвіти</b> 💎.</p>
+    <p>⚠️ До +6 — безпечно. З +7 провал знижує заточування на 1 рівень (срібло та самоцвіти згорають).</p>
+    <div class="tw"><table><thead><tr><th>Заточування</th><th>💎 Самоцвіти</th><th>🎯 Шанс</th><th>У разі провалу</th></tr></thead><tbody><tr><td>+1</td><td class="num">1</td><td class="num">100%</td><td>—</td></tr><tr><td>+2</td><td class="num">1</td><td class="num">100%</td><td>—</td></tr><tr><td>+3</td><td class="num">1</td><td class="num">100%</td><td>—</td></tr><tr><td>+4</td><td class="num">2</td><td class="num">100%</td><td>—</td></tr><tr><td>+5</td><td class="num">2</td><td class="num">100%</td><td>—</td></tr><tr><td>+6</td><td class="num">2</td><td class="num">100%</td><td>—</td></tr><tr><td>+7</td><td class="num">3</td><td class="num">80%</td><td><span class="warn">−1 рівень</span></td></tr><tr><td>+8</td><td class="num">3</td><td class="num">70%</td><td><span class="warn">−1 рівень</span></td></tr><tr><td>+9</td><td class="num">3</td><td class="num">60%</td><td><span class="warn">−1 рівень</span></td></tr><tr><td>+10</td><td class="num">4</td><td class="num">50%</td><td><span class="warn">−1 рівень</span></td></tr><tr><td>+11</td><td class="num">4</td><td class="num">40%</td><td><span class="warn">−1 рівень</span></td></tr><tr><td>+12</td><td class="num">4</td><td class="num">30%</td><td><span class="warn">−1 рівень</span></td></tr></tbody></table></div></section>
+<section id="alchemy" class=""><p>Алхімік на ринковій площі варить зілля з трофеїв ваших полювань — дешевше, ніж купувати готові в крамниці. Бойові зілля діють указану кількість боїв (заряд витрачається на вході в бій, на арені бафи вимкнені).</p><div class="grid"><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#8fc97a">🟢 Зілля сили</span></h3>
+      <p class="dim">+25% атаки на 5 боїв <span class="dim">(крім арени)</span></p>
+      <p><b>Інгредієнти:</b><br><span class="item" style="color:#c9c4b8">⚪️ Вовча шкура</span> ×2<br><span class="item" style="color:#c9c4b8">⚪️ Ікло кабана</span> ×1</p>
+      <p>💰 Робота: <b>25 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#8fc97a">🟢 Зілля кам'яної шкіри</span></h3>
+      <p class="dim">+25% захисту на 5 боїв <span class="dim">(крім арени)</span></p>
+      <p><b>Інгредієнти:</b><br><span class="item" style="color:#8fc97a">🟢 Кістяний пил</span> ×2<br><span class="item" style="color:#c9c4b8">⚪️ Крило кажана</span> ×2</p>
+      <p>💰 Робота: <b>25 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#7aa8e0">🔵 Зілля люті</span></h3>
+      <p class="dim">шанс криту 25% на 5 боїв <span class="dim">(крім арени)</span></p>
+      <p><b>Інгредієнти:</b><br><span class="item" style="color:#8fc97a">🟢 Павучий шовк</span> ×1<br><span class="item" style="color:#8fc97a">🟢 Кіготь упиря</span> ×1</p>
+      <p>💰 Робота: <b>40 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#8fc97a">🟢 Середнє зілля зцілення</span></h3>
+      <p class="dim">❤️ Лікує 90</p>
+      <p><b>Інгредієнти:</b><br><span class="item" style="color:#c9c4b8">⚪️ Слиз п'явки</span> ×2</p>
+      <p>💰 Робота: <b>10 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#7aa8e0">🔵 Велике зілля зцілення</span></h3>
+      <p class="dim">❤️ Лікує 250</p>
+      <p><b>Інгредієнти:</b><br><span class="item" style="color:#7aa8e0">🔵 Болотна есенція</span> ×1<br><span class="item" style="color:#7aa8e0">🔵 Шкура троля</span> ×1</p>
+      <p>💰 Робота: <b>30 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#bd8ce0">🟣 Величне зілля зцілення</span></h3>
+      <p class="dim">❤️ Лікує 600</p>
+      <p><b>Інгредієнти:</b><br><span class="item" style="color:#7aa8e0">🔵 Драконяча кров</span> ×1<br><span class="item" style="color:#8fc97a">🟢 Вічний лід</span> ×1</p>
+      <p>💰 Робота: <b>60 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#8fc97a">🟢 Зілля сили</span> ×3</h3>
+      <p class="dim">+25% атаки на 5 боїв <span class="dim">(крім арени)</span></p>
+      <p><b>Інгредієнти:</b><br><span class="item" style="color:#c9c4b8">⚪️ Могильний прах</span> ×2<br><span class="item" style="color:#7aa8e0">🔵 Ріг демона</span> ×1</p>
+      <p>💰 Робота: <b>60 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#8fc97a">🟢 Зілля кам'яної шкіри</span> ×3</h3>
+      <p class="dim">+25% захисту на 5 боїв <span class="dim">(крім арени)</span></p>
+      <p><b>Інгредієнти:</b><br><span class="item" style="color:#8fc97a">🟢 Кістка ліча</span> ×2<br><span class="item" style="color:#8fc97a">🟢 Вічний лід</span> ×1</p>
+      <p>💰 Робота: <b>60 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#7aa8e0">🔵 Зілля люті</span> ×3</h3>
+      <p class="dim">шанс криту 25% на 5 боїв <span class="dim">(крім арени)</span></p>
+      <p><b>Інгредієнти:</b><br><span class="item" style="color:#8fc97a">🟢 Тліючий уламок</span> ×2<br><span class="item" style="color:#7aa8e0">🔵 Луска виверни</span> ×1</p>
+      <p>💰 Робота: <b>90 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#7aa8e0">🔵 Самоцвіт</span> ×2</h3>
+      <p class="dim">—</p>
+      <p><b>Інгредієнти:</b><br><span class="item" style="color:#bd8ce0">🟣 Кристал розламу</span> ×1</p>
+      <p>💰 Робота: <b>100 🪙</b></p>
+    </div></div></div></section>
+<section id="basics" class=""><div class="card"><div class="cbody"><h3>✨ Досвід і рівні</h3><p>Досвід дають перемоги над монстрами, завдання та світовий бос. За кожен рівень: +3 очки характеристик (⚔️ сила / 🛡 захист / ❤️ живучість) і +5 до макс. HP. Здоров’я повністю відновлюється з новим рівнем.</p></div></div><div class="card"><div class="cbody"><h3>❤️ Здоров’я</h3><p>Поза боєм HP відновлюється саме: 1 HP кожні 20 секунд. Цілитель у селі лікує повністю за срібло (5 🪙 × ваш рівень).</p></div></div><div class="card"><div class="cbody"><h3>💀 Поразка</h3><p>Програш у PvE: ви отямлюєтеся в селі з 30% HP і втрачаєте 10% срібла. На арені здоров’я не витрачається — бої тренувальні.</p></div></div><div class="card"><div class="cbody"><h3>🏟 Арена</h3><p>PvP за рейтингом (±5 рівнів): перемога +25 рейтингу і срібло, поразка −20. Бафи алхіміка на арені не діють.</p></div></div><div class="card"><div class="cbody"><h3>🐲 Світовий бос</h3><p>Спільний ворог усіх гравців. Нагорода ділиться пропорційно завданій шкоді, топ-3 отримують рідкісні трофеї та самоцвіти. Новий бос — через 30 хвилин після перемоги.</p></div></div><div class="card"><div class="cbody"><h3>💰 Торгівля</h3><p>Крамниця купує речі за пів ціни. На ринковій площі можна виставити лот для інших гравців — ціну обираєте самі.</p></div></div><div class="card"><div class="cbody"><h3>💡 Ідеї</h3><p>Кнопка «Ідея» у профілі — пропозиції потрапляють напряму розробникам. Найкращі ідеї гравців уже в грі!</p></div></div>
+    <h3>✨ Досвід до наступного рівня</h3>
+    <div class="tw"><table class="narrow"><thead><tr><th>Рівень</th><th>Потрібно досвіду</th></tr></thead><tbody><tr><td class="num">1</td><td class="num">100</td></tr><tr><td class="num">2</td><td class="num">263</td></tr><tr><td class="num">3</td><td class="num">465</td></tr><tr><td class="num">5</td><td class="num">951</td></tr><tr><td class="num">8</td><td class="num">1 837</td></tr><tr><td class="num">10</td><td class="num">2 511</td></tr><tr><td class="num">15</td><td class="num">4 431</td></tr><tr><td class="num">20</td><td class="num">6 628</td></tr><tr><td class="num">25</td><td class="num">9 059</td></tr><tr><td class="num">30</td><td class="num">11 694</td></tr><tr><td class="num">40</td><td class="num">17 493</td></tr><tr><td class="num">50</td><td class="num">23 908</td></tr></tbody></table></div></section>
+<footer>⚔️ Оновлюється автоматично з ігрових даних</footer>
+</div>
+<script>
+const tabs=document.querySelectorAll('nav button');
+const secs=document.querySelectorAll('section');
+tabs.forEach(b=>b.addEventListener('click',()=>{
+  tabs.forEach(x=>x.classList.remove('on'));secs.forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');document.getElementById(b.dataset.t).classList.add('on');
+  window.scrollTo({top:0});
+}));
+const q=document.getElementById('itemSearch');
+if(q)q.addEventListener('input',()=>{
+  const v=q.value.trim().toLowerCase();
+  document.querySelectorAll('#items tbody tr').forEach(tr=>{
+    tr.style.display=!v||tr.textContent.toLowerCase().includes(v)?'':'none';
+  });
+});
+if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();
+  try{Telegram.WebApp.setHeaderColor('#16100a');Telegram.WebApp.setBackgroundColor('#16100a');}catch(e){}}
+</script>
+</body>
+</html>

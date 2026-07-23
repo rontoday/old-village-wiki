@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Old Village — Příručka</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{
+  --bg:#16100a; --card:#221a10; --card2:#2a2013; --line:#42341f;
+  --ink:#ead9b7; --dim:#a08a5f; --gold:#d9a94f; --warn:#e07a5f;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg); color:var(--ink);
+  font:16px/1.55 Georgia,'Times New Roman',serif;
+  background-image:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(217,169,79,.08),transparent),
+                   radial-gradient(ellipse 60% 40% at 90% 110%,rgba(217,169,79,.05),transparent);
+  min-height:100vh;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 14px 48px}
+header{padding:22px 0 10px;text-align:center}
+header h1{
+  font-family:'Cormorant',Georgia,serif;font-size:30px;font-weight:700;color:var(--gold);
+  letter-spacing:.5px;text-shadow:0 2px 12px rgba(217,169,79,.25);
+}
+header .sub{color:var(--dim);font-size:13px;font-style:italic}
+nav{
+  position:sticky;top:0;z-index:5;display:flex;gap:6px;overflow-x:auto;
+  padding:10px 0;background:linear-gradient(var(--bg) 82%,transparent);
+  scrollbar-width:none;
+}
+nav::-webkit-scrollbar{display:none}
+nav button{
+  flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--dim);
+  font:14px Georgia,serif;padding:8px 13px;border-radius:20px;cursor:pointer;white-space:nowrap;
+}
+nav button.on{background:var(--gold);border-color:var(--gold);color:#241a0e;font-weight:700}
+section{display:none;padding-top:8px}
+section.on{display:block}
+h3{font-family:'Cormorant',Georgia,serif;font-size:21px;color:var(--gold);margin:20px 0 8px}
+h4{font-family:'Cormorant',Georgia,serif;font-size:17px;color:var(--gold);margin:12px 0 6px}
+p{margin:8px 0}
+.dim{color:var(--dim)}
+.warn{color:var(--warn)}
+.center{text-align:center}
+.lvl{font-size:13px;color:var(--dim);font-weight:400;white-space:nowrap}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  overflow:hidden;margin:14px 0;box-shadow:0 4px 18px rgba(0,0,0,.35);
+}
+.card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;border-bottom:1px solid var(--line)}
+.cbody{padding:12px 14px 14px}
+.cbody h3{margin-top:2px}
+.grid{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:560px){.grid{grid-template-columns:1fr 1fr;gap:0 14px}}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:3px 9px;font-size:13.5px}
+.tw{overflow-x:auto;margin:6px 0 14px;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:var(--card)}
+table.narrow{max-width:340px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;background:var(--card2);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.num{white-space:nowrap;font-variant-numeric:tabular-nums}
+td.src{font-size:13px;color:var(--dim);min-width:150px}
+td.src .item,.use{font-size:13px}
+.use{margin-top:3px;color:var(--gold)}
+.item{white-space:nowrap}
+.search{
+  width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink);font:15px Georgia,serif;outline:none;margin-top:10px;
+}
+.search::placeholder{color:var(--dim)}
+footer{margin-top:34px;text-align:center;color:var(--dim);font-size:12px;font-style:italic}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><h1>🏘 Old Village</h1><div class="sub">Příručka</div></header>
+<nav><button data-t="locations" class="on">🗺 Lokace</button><button data-t="bosses" class="">🐲 Bossové</button><button data-t="items" class="">🎒 Předměty</button><button data-t="smith" class="">⚒️ Kovárna</button><button data-t="alchemy" class="">🧪 Alchymie</button><button data-t="basics" class="">📜 Základy</button></nav>
+<section id="locations" class="on"><div class="card">
+      <img src="../img/loc-village.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🏘 Vesnice Doubrava <span class="lvl">od úrovně 1</span></h3>
+        <p class="dim">Tichá vesnice na okraji království — srdce života hrdinů. Najdeš tu krám, tržiště, arénu, léčitele i desku úkolů.</p>
+        
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-forest.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🌲 Temný les <span class="lvl">od úrovně 1</span></h3>
+        <p class="dim">Prastaré stromy zakrývají slunce. Mezi kmeny se plíží vlci, kanci a goblini zvědové.</p>
+        <h4>Obyvatelé</h4><div class="tw"><table><thead><tr><th>Nestvůra</th><th>Úr.</th><th>❤️ HP</th><th>⚔️ Útok</th><th>✨ Zkušenosti</th><th>🪙 Stříbro</th><th>🎁 Kořist</th></tr></thead><tbody><tr><td>Lesní vlk</td><td class="num">1</td><td class="num">25</td><td class="num">5</td><td class="num">14</td><td class="num">3–8</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Vlčí kožešina</span> <span class="dim">45%</span><br><span class="item" style="color:#c9c4b8">⚪️ Malý léčivý lektvar</span> <span class="dim">10%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">2%</span></td></tr><tr><td>Divoký kanec</td><td class="num">2</td><td class="num">38</td><td class="num">7</td><td class="num">20</td><td class="num">5–12</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Kančí kel</span> <span class="dim">40%</span><br><span class="item" style="color:#c9c4b8">⚪️ Malý léčivý lektvar</span> <span class="dim">10%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">2%</span></td></tr><tr><td>Lesní pavouk</td><td class="num">3</td><td class="num">45</td><td class="num">9</td><td class="num">27</td><td class="num">7–15</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Pavoučí hedvábí</span> <span class="dim">35%</span><br><span class="item" style="color:#c9c4b8">⚪️ Dřevěný kyj</span> <span class="dim">6%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">2%</span></td></tr><tr><td>Goblin zvěd</td><td class="num">4</td><td class="num">55</td><td class="num">11</td><td class="num">35</td><td class="num">10–22</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Gobliní ucho</span> <span class="dim">50%</span><br><span class="item" style="color:#c9c4b8">⚪️ Lovecký luk</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">2%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-caves.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🕳 Staré jeskyně <span class="lvl">od úrovně 4</span></h3>
+        <p class="dim">Opuštěné doly, kde teď vládnou goblini a nemrtví. Prý v hlubinách žije troll.</p>
+        <h4>Obyvatelé</h4><div class="tw"><table><thead><tr><th>Nestvůra</th><th>Úr.</th><th>❤️ HP</th><th>⚔️ Útok</th><th>✨ Zkušenosti</th><th>🪙 Stříbro</th><th>🎁 Kořist</th></tr></thead><tbody><tr><td>Jeskynní netopýr</td><td class="num">4</td><td class="num">50</td><td class="num">12</td><td class="num">34</td><td class="num">8–18</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Netopýří křídlo</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">3%</span></td></tr><tr><td>Goblin válečník</td><td class="num">5</td><td class="num">70</td><td class="num">14</td><td class="num">45</td><td class="num">12–26</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Gobliní ucho</span> <span class="dim">50%</span><br><span class="item" style="color:#c9c4b8">⚪️ Železný meč</span> <span class="dim">6%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">3%</span></td></tr><tr><td>Kostlivec</td><td class="num">6</td><td class="num">85</td><td class="num">16</td><td class="num">55</td><td class="num">15–30</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Kostní prach</span> <span class="dim">45%</span><br><span class="item" style="color:#8fc97a">🟢 Kroužková zbroj</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">3%</span></td></tr><tr><td>Jeskynní troll</td><td class="num">8</td><td class="num">130</td><td class="num">20</td><td class="num">85</td><td class="num">25–50</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Trollí kůže</span> <span class="dim">40%</span><br><span class="item" style="color:#8fc97a">🟢 Ocelová sekera</span> <span class="dim">7%</span><br><span class="item" style="color:#8fc97a">🟢 Střední léčivý lektvar</span> <span class="dim">15%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">3%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-swamp.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🐸 Zrádné bažiny <span class="lvl">od úrovně 8</span></h3>
+        <p class="dim">Mlha, bažina a pach hniloby. Ztrácejí se tu i zkušení poutníci — a ti, kdo se vrátí, přinášejí cennou esenci.</p>
+        <h4>Obyvatelé</h4><div class="tw"><table><thead><tr><th>Nestvůra</th><th>Úr.</th><th>❤️ HP</th><th>⚔️ Útok</th><th>✨ Zkušenosti</th><th>🪙 Stříbro</th><th>🎁 Kořist</th></tr></thead><tbody><tr><td>Obří pijavice</td><td class="num">8</td><td class="num">110</td><td class="num">19</td><td class="num">75</td><td class="num">18–38</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Sliz pijavice</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">3%</span></td></tr><tr><td>Ghúl</td><td class="num">10</td><td class="num">150</td><td class="num">24</td><td class="num">100</td><td class="num">25–55</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Ghúlí dráp</span> <span class="dim">45%</span><br><span class="item" style="color:#8fc97a">🟢 Stříbrná šavle</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">3%</span></td></tr><tr><td>Bažinná čarodějnice</td><td class="num">11</td><td class="num">160</td><td class="num">28</td><td class="num">120</td><td class="num">30–65</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Bažinná esence</span> <span class="dim">35%</span><br><span class="item" style="color:#7aa8e0">🔵 Velký léčivý lektvar</span> <span class="dim">12%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">3%</span></td></tr><tr><td>Bažinná hrůza</td><td class="num">13</td><td class="num">220</td><td class="num">32</td><td class="num">160</td><td class="num">45–90</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Bažinná esence</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Rytířská čepel</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">3%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-mountains.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>⛰ Horský průsmyk <span class="lvl">od úrovně 13</span></h3>
+        <p class="dim">Ledový vítr a strmé skály. V průsmyku loví harpyje a z kamene povstávají prastaří golemové.</p>
+        <h4>Obyvatelé</h4><div class="tw"><table><thead><tr><th>Nestvůra</th><th>Úr.</th><th>❤️ HP</th><th>⚔️ Útok</th><th>✨ Zkušenosti</th><th>🪙 Stříbro</th><th>🎁 Kořist</th></tr></thead><tbody><tr><td>Horský vlk</td><td class="num">13</td><td class="num">200</td><td class="num">33</td><td class="num">150</td><td class="num">40–80</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Vlčí kožešina</span> <span class="dim">60%</span><br><span class="item" style="color:#8fc97a">🟢 Střední léčivý lektvar</span> <span class="dim">15%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">4%</span></td></tr><tr><td>Harpyje</td><td class="num">14</td><td class="num">220</td><td class="num">37</td><td class="num">175</td><td class="num">45–95</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Pero harpyje</span> <span class="dim">50%</span><br><span class="item" style="color:#8fc97a">🟢 Šupinová zbroj</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">4%</span></td></tr><tr><td>Kamenný golem</td><td class="num">16</td><td class="num">300</td><td class="num">40</td><td class="num">220</td><td class="num">60–120</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Jádro golema</span> <span class="dim">35%</span><br><span class="item" style="color:#7aa8e0">🔵 Válečné kladivo</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">4%</span></td></tr><tr><td>Zlobr</td><td class="num">18</td><td class="num">360</td><td class="num">48</td><td class="num">280</td><td class="num">80–160</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Zub zlobra</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Plátová zbroj</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Velký léčivý lektvar</span> <span class="dim">15%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">4%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-castle.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🏰 Prokletý hrad <span class="lvl">od úrovně 18</span></h3>
+        <p class="dim">Sídlo padlého upířího lorda. Jen nejsilnější hrdinové se odváží vejít do těchto bran.</p>
+        <h4>Obyvatelé</h4><div class="tw"><table><thead><tr><th>Nestvůra</th><th>Úr.</th><th>❤️ HP</th><th>⚔️ Útok</th><th>✨ Zkušenosti</th><th>🪙 Stříbro</th><th>🎁 Kořist</th></tr></thead><tbody><tr><td>Prokletý rytíř</td><td class="num">19</td><td class="num">380</td><td class="num">52</td><td class="num">320</td><td class="num">90–180</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Prokletý emblém</span> <span class="dim">45%</span><br><span class="item" style="color:#7aa8e0">🔵 Rytířská čepel</span> <span class="dim">8%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">5%</span></td></tr><tr><td>Přízrak</td><td class="num">21</td><td class="num">420</td><td class="num">60</td><td class="num">380</td><td class="num">100–210</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Prokletý emblém</span> <span class="dim">50%</span><br><span class="item" style="color:#bd8ce0">🟣 Dýka stínů</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">5%</span></td></tr><tr><td>Chrlič</td><td class="num">23</td><td class="num">500</td><td class="num">65</td><td class="num">450</td><td class="num">120–240</td><td class="src"><span class="item" style="color:#bd8ce0">🟣 Úlomek krystalu</span> <span class="dim">30%</span><br><span class="item" style="color:#bd8ce0">🟣 Začarovaný hábit</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">5%</span></td></tr><tr><td>Upíří lord</td><td class="num">25</td><td class="num">600</td><td class="num">75</td><td class="num">600</td><td class="num">160–320</td><td class="src"><span class="item" style="color:#bd8ce0">🟣 Upíří tesák</span> <span class="dim">40%</span><br><span class="item" style="color:#bd8ce0">🟣 Plamenný meč</span> <span class="dim">5%</span><br><span class="item" style="color:#e8a755">🟠 Prastará relikvie</span> <span class="dim">2%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">5%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-catacombs.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>⚰️ Zapomenuté katakomby <span class="lvl">od úrovně 25</span></h3>
+        <p class="dim">Pod starým hřbitovem se táhnou nekonečné chodby. Šustí hrobový prach a ve tmě chrastí kosti dávno padlých rytířů.</p>
+        <h4>Obyvatelé</h4><div class="tw"><table><thead><tr><th>Nestvůra</th><th>Úr.</th><th>❤️ HP</th><th>⚔️ Útok</th><th>✨ Zkušenosti</th><th>🪙 Stříbro</th><th>🎁 Kořist</th></tr></thead><tbody><tr><td>Ghúl z krypty</td><td class="num">26</td><td class="num">680</td><td class="num">78</td><td class="num">700</td><td class="num">180–360</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Hrobový prach</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Velký léčivý lektvar</span> <span class="dim">8%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">6%</span></td></tr><tr><td>Kostěný rytíř</td><td class="num">28</td><td class="num">780</td><td class="num">84</td><td class="num">820</td><td class="num">210–420</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Hrobový prach</span> <span class="dim">40%</span><br><span class="item" style="color:#8fc97a">🟢 Lichova kost</span> <span class="dim">25%</span><br><span class="item" style="color:#bd8ce0">🟣 Kostěná zbroj</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">6%</span></td></tr><tr><td>Hrobový přízrak</td><td class="num">29</td><td class="num">850</td><td class="num">88</td><td class="num">900</td><td class="num">230–460</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Lichova kost</span> <span class="dim">45%</span><br><span class="item" style="color:#bd8ce0">🟣 Obsidiánová čepel</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">6%</span></td></tr><tr><td>Lichův učedník</td><td class="num">31</td><td class="num">950</td><td class="num">93</td><td class="num">1050</td><td class="num">260–520</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Lichova kost</span> <span class="dim">50%</span><br><span class="item" style="color:#bd8ce0">🟣 Obsidiánová čepel</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Velký léčivý lektvar</span> <span class="dim">12%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">6%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-wastes.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🌋 Spálené pustiny <span class="lvl">od úrovně 31</span></h3>
+        <p class="dim">Do základů spálená země dýchá žárem. V popelu slídí ohaři a z puklin šlehá podzemní plamen.</p>
+        <h4>Obyvatelé</h4><div class="tw"><table><thead><tr><th>Nestvůra</th><th>Úr.</th><th>❤️ HP</th><th>⚔️ Útok</th><th>✨ Zkušenosti</th><th>🪙 Stříbro</th><th>🎁 Kořist</th></tr></thead><tbody><tr><td>Popelavý ohař</td><td class="num">32</td><td class="num">1050</td><td class="num">96</td><td class="num">1150</td><td class="num">280–560</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Žhnoucí střep</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">7%</span></td></tr><tr><td>Ohnivý ďáblík</td><td class="num">34</td><td class="num">1200</td><td class="num">102</td><td class="num">1350</td><td class="num">310–620</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Žhnoucí střep</span> <span class="dim">45%</span><br><span class="item" style="color:#7aa8e0">🔵 Démoní roh</span> <span class="dim">20%</span><br><span class="item" style="color:#bd8ce0">🟣 Vznešený léčivý lektvar</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">7%</span></td></tr><tr><td>Magmový golem</td><td class="num">36</td><td class="num">1300</td><td class="num">108</td><td class="num">1550</td><td class="num">340–680</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Démoní roh</span> <span class="dim">35%</span><br><span class="item" style="color:#bd8ce0">🟣 Pekelná zbroj</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">7%</span></td></tr><tr><td>Plamenný džin</td><td class="num">38</td><td class="num">1350</td><td class="num">114</td><td class="num">1800</td><td class="num">380–760</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Démoní roh</span> <span class="dim">45%</span><br><span class="item" style="color:#bd8ce0">🟣 Démonický sekáček</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">7%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-peaks.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🏔 Ledové štíty <span class="lvl">od úrovně 38</span></h3>
+        <p class="dim">Mezi ledovými skalami kvílí věčná vánice. Mráz proniká až do kostí a v bílé mlze se míhají okřídlené stíny.</p>
+        <h4>Obyvatelé</h4><div class="tw"><table><thead><tr><th>Nestvůra</th><th>Úr.</th><th>❤️ HP</th><th>⚔️ Útok</th><th>✨ Zkušenosti</th><th>🪙 Stříbro</th><th>🎁 Kořist</th></tr></thead><tbody><tr><td>Mrazivý vlk</td><td class="num">39</td><td class="num">1500</td><td class="num">117</td><td class="num">2000</td><td class="num">420–840</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Věčný led</span> <span class="dim">50%</span><br><span class="item" style="color:#bd8ce0">🟣 Vznešený léčivý lektvar</span> <span class="dim">6%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">8%</span></td></tr><tr><td>Ledový stín</td><td class="num">41</td><td class="num">1650</td><td class="num">123</td><td class="num">2250</td><td class="num">460–920</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Věčný led</span> <span class="dim">45%</span><br><span class="item" style="color:#e8a755">🟠 Ledovcová zbroj</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">8%</span></td></tr><tr><td>Sněžný trol</td><td class="num">42</td><td class="num">1750</td><td class="num">126</td><td class="num">2450</td><td class="num">500–1000</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Věčný led</span> <span class="dim">40%</span><br><span class="item" style="color:#e8a755">🟠 Sekera věčné zimy</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">8%</span></td></tr><tr><td>Ledová wyverna</td><td class="num">44</td><td class="num">1900</td><td class="num">132</td><td class="num">2750</td><td class="num">550–1100</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Šupina wyverny</span> <span class="dim">50%</span><br><span class="item" style="color:#e8a755">🟠 Ledovcová zbroj</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">8%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-rift.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🌀 Dračí trhlina <span class="lvl">od úrovně 44</span></h3>
+        <p class="dim">Rozpolcená země, z níž prosakuje prastará magie. Hnízdí tu draci — a jen ti největší hrdinové se odsud vracejí živí.</p>
+        <h4>Obyvatelé</h4><div class="tw"><table><thead><tr><th>Nestvůra</th><th>Úr.</th><th>❤️ HP</th><th>⚔️ Útok</th><th>✨ Zkušenosti</th><th>🪙 Stříbro</th><th>🎁 Kořist</th></tr></thead><tbody><tr><td>Stopař trhliny</td><td class="num">45</td><td class="num">2100</td><td class="num">135</td><td class="num">3000</td><td class="num">600–1200</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Dračí krev</span> <span class="dim">40%</span><br><span class="item" style="color:#bd8ce0">🟣 Krystal trhliny</span> <span class="dim">12%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">10%</span></td></tr><tr><td>Mladý drak</td><td class="num">47</td><td class="num">2300</td><td class="num">141</td><td class="num">3400</td><td class="num">650–1300</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Dračí krev</span> <span class="dim">45%</span><br><span class="item" style="color:#7aa8e0">🔵 Šupina wyverny</span> <span class="dim">30%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">10%</span></td></tr><tr><td>Dračí kněz</td><td class="num">48</td><td class="num">2500</td><td class="num">144</td><td class="num">3700</td><td class="num">700–1400</td><td class="src"><span class="item" style="color:#bd8ce0">🟣 Krystal trhliny</span> <span class="dim">30%</span><br><span class="item" style="color:#e8a755">🟠 Čepel Pána draků</span> <span class="dim">2%</span><br><span class="item" style="color:#bd8ce0">🟣 Vznešený léčivý lektvar</span> <span class="dim">10%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">10%</span></td></tr><tr><td>Prastarý drak</td><td class="num">50</td><td class="num">2900</td><td class="num">150</td><td class="num">4300</td><td class="num">800–1600</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Dračí krev</span> <span class="dim">50%</span><br><span class="item" style="color:#bd8ce0">🟣 Krystal trhliny</span> <span class="dim">25%</span><br><span class="item" style="color:#e8a755">🟠 Čepel Pána draků</span> <span class="dim">3%</span><br><span class="item" style="color:#e8a755">🟠 Pláty Pána draků</span> <span class="dim">3%</span><br><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> <span class="dim">12%</span></td></tr></tbody></table></div>
+      </div>
+    </div></section>
+<section id="bosses" class=""><div class="card">
+      <img src="../img/boss-ancient_ent.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🌳 Prastarý ent</h3>
+        <div class="chips">
+          <span class="chip">❤️ Zdraví: <b>3 000</b></span>
+          <span class="chip">⚔️ Útok: <b>20</b></span>
+          <span class="chip">🛡 Obrana: <b>5</b></span>
+        </div>
+        <p>💰 Společná odměna: <b>🪙 1 500</b> + <b>✨ 2 000</b> <span class="dim">— dělí se podle způsobeného poškození</span></p>
+        <p>🏆 Trofeje pro top 3:<br>1. <span class="item" style="color:#8fc97a">🟢 Ocelová sekera</span><br>2. <span class="item" style="color:#7aa8e0">🔵 Velký léčivý lektvar</span><br>3. <span class="item" style="color:#8fc97a">🟢 Střední léčivý lektvar</span></p>
+        <p class="dim">Drahokamy pro top 3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-goblin_king.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>👺 Král goblinů</h3>
+        <div class="chips">
+          <span class="chip">❤️ Zdraví: <b>6 000</b></span>
+          <span class="chip">⚔️ Útok: <b>30</b></span>
+          <span class="chip">🛡 Obrana: <b>8</b></span>
+        </div>
+        <p>💰 Společná odměna: <b>🪙 3 000</b> + <b>✨ 4 500</b> <span class="dim">— dělí se podle způsobeného poškození</span></p>
+        <p>🏆 Trofeje pro top 3:<br>1. <span class="item" style="color:#7aa8e0">🔵 Rytířská čepel</span><br>2. <span class="item" style="color:#8fc97a">🟢 Kroužková zbroj</span><br>3. <span class="item" style="color:#7aa8e0">🔵 Velký léčivý lektvar</span></p>
+        <p class="dim">Drahokamy pro top 3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-swamp_leviathan.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🐉 Bažinný leviatan</h3>
+        <div class="chips">
+          <span class="chip">❤️ Zdraví: <b>12 000</b></span>
+          <span class="chip">⚔️ Útok: <b>45</b></span>
+          <span class="chip">🛡 Obrana: <b>12</b></span>
+        </div>
+        <p>💰 Společná odměna: <b>🪙 6 000</b> + <b>✨ 9 000</b> <span class="dim">— dělí se podle způsobeného poškození</span></p>
+        <p>🏆 Trofeje pro top 3:<br>1. <span class="item" style="color:#7aa8e0">🔵 Válečné kladivo</span><br>2. <span class="item" style="color:#7aa8e0">🔵 Plátová zbroj</span><br>3. <span class="item" style="color:#8fc97a">🟢 Stříbrná šavle</span></p>
+        <p class="dim">Drahokamy pro top 3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-frost_giant.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🧊 Ledový obr</h3>
+        <div class="chips">
+          <span class="chip">❤️ Zdraví: <b>20 000</b></span>
+          <span class="chip">⚔️ Útok: <b>60</b></span>
+          <span class="chip">🛡 Obrana: <b>18</b></span>
+        </div>
+        <p>💰 Společná odměna: <b>🪙 10 000</b> + <b>✨ 16 000</b> <span class="dim">— dělí se podle způsobeného poškození</span></p>
+        <p>🏆 Trofeje pro top 3:<br>1. <span class="item" style="color:#bd8ce0">🟣 Plamenný meč</span><br>2. <span class="item" style="color:#bd8ce0">🟣 Začarovaný hábit</span><br>3. <span class="item" style="color:#7aa8e0">🔵 Válečné kladivo</span></p>
+        <p class="dim">Drahokamy pro top 3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-ash_dragon.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🔥 Drak Popelové hory</h3>
+        <div class="chips">
+          <span class="chip">❤️ Zdraví: <b>35 000</b></span>
+          <span class="chip">⚔️ Útok: <b>80</b></span>
+          <span class="chip">🛡 Obrana: <b>25</b></span>
+        </div>
+        <p>💰 Společná odměna: <b>🪙 20 000</b> + <b>✨ 30 000</b> <span class="dim">— dělí se podle způsobeného poškození</span></p>
+        <p>🏆 Trofeje pro top 3:<br>1. <span class="item" style="color:#e8a755">🟠 Drakobijec</span><br>2. <span class="item" style="color:#e8a755">🟠 Zbroj z dračích šupin</span><br>3. <span class="item" style="color:#bd8ce0">🟣 Dýka stínů</span></p>
+        <p class="dim">Drahokamy pro top 3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-lich_emperor.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>💀 Císař lichů</h3>
+        <div class="chips">
+          <span class="chip">❤️ Zdraví: <b>55 000</b></span>
+          <span class="chip">⚔️ Útok: <b>100</b></span>
+          <span class="chip">🛡 Obrana: <b>32</b></span>
+        </div>
+        <p>💰 Společná odměna: <b>🪙 32 000</b> + <b>✨ 50 000</b> <span class="dim">— dělí se podle způsobeného poškození</span></p>
+        <p>🏆 Trofeje pro top 3:<br>1. <span class="item" style="color:#bd8ce0">🟣 Obsidiánová čepel</span><br>2. <span class="item" style="color:#bd8ce0">🟣 Kostěná zbroj</span><br>3. <span class="item" style="color:#bd8ce0">🟣 Vznešený léčivý lektvar</span></p>
+        <p class="dim">Drahokamy pro top 3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-infernal_overlord.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>😈 Pekelný vládce</h3>
+        <div class="chips">
+          <span class="chip">❤️ Zdraví: <b>85 000</b></span>
+          <span class="chip">⚔️ Útok: <b>125</b></span>
+          <span class="chip">🛡 Obrana: <b>40</b></span>
+        </div>
+        <p>💰 Společná odměna: <b>🪙 50 000</b> + <b>✨ 80 000</b> <span class="dim">— dělí se podle způsobeného poškození</span></p>
+        <p>🏆 Trofeje pro top 3:<br>1. <span class="item" style="color:#bd8ce0">🟣 Démonický sekáček</span><br>2. <span class="item" style="color:#bd8ce0">🟣 Pekelná zbroj</span><br>3. <span class="item" style="color:#bd8ce0">🟣 Vznešený léčivý lektvar</span></p>
+        <p class="dim">Drahokamy pro top 3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-frost_empress.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>❄️ Ledová císařovna</h3>
+        <div class="chips">
+          <span class="chip">❤️ Zdraví: <b>130 000</b></span>
+          <span class="chip">⚔️ Útok: <b>155</b></span>
+          <span class="chip">🛡 Obrana: <b>50</b></span>
+        </div>
+        <p>💰 Společná odměna: <b>🪙 75 000</b> + <b>✨ 125 000</b> <span class="dim">— dělí se podle způsobeného poškození</span></p>
+        <p>🏆 Trofeje pro top 3:<br>1. <span class="item" style="color:#e8a755">🟠 Sekera věčné zimy</span><br>2. <span class="item" style="color:#e8a755">🟠 Ledovcová zbroj</span><br>3. <span class="item" style="color:#bd8ce0">🟣 Vznešený léčivý lektvar</span></p>
+        <p class="dim">Drahokamy pro top 3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-dragonlord.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>👑 Pán draků</h3>
+        <div class="chips">
+          <span class="chip">❤️ Zdraví: <b>200 000</b></span>
+          <span class="chip">⚔️ Útok: <b>190</b></span>
+          <span class="chip">🛡 Obrana: <b>62</b></span>
+        </div>
+        <p>💰 Společná odměna: <b>🪙 120 000</b> + <b>✨ 200 000</b> <span class="dim">— dělí se podle způsobeného poškození</span></p>
+        <p>🏆 Trofeje pro top 3:<br>1. <span class="item" style="color:#e8a755">🟠 Čepel Pána draků</span><br>2. <span class="item" style="color:#e8a755">🟠 Pláty Pána draků</span><br>3. <span class="item" style="color:#bd8ce0">🟣 Krystal trhliny</span></p>
+        <p class="dim">Drahokamy pro top 3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><p class="dim center">⏳ Další boss za 30 min po vítězství</p></section>
+<section id="items" class="">
+    <input class="search" id="itemSearch" type="search" placeholder="🔍 Hledat předměty…">
+    <h3>🗡 Zbraně</h3><div class="tw"><table><thead><tr><th>Předmět</th><th>Vlastnost</th><th>🪙 Cena</th><th>Kde získat</th></tr></thead><tbody>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Rezavý meč</span></td>
+      <td>⚔️ Útok +2</td>
+      <td class="num">15</td>
+      <td class="src">🛒 obchod</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Dřevěný kyj</span></td>
+      <td>⚔️ Útok +3</td>
+      <td class="num">25</td>
+      <td class="src">Lesní pavouk <span class="dim">6%</span> · 🛒 obchod</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Lovecký luk</span></td>
+      <td>⚔️ Útok +4</td>
+      <td class="num">45</td>
+      <td class="src">Goblin zvěd <span class="dim">5%</span> · 🛒 obchod</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Železný meč</span></td>
+      <td>⚔️ Útok +6</td>
+      <td class="num">90</td>
+      <td class="src">Goblin válečník <span class="dim">6%</span> · 🛒 obchod</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Ocelová sekera</span></td>
+      <td>⚔️ Útok +9</td>
+      <td class="num">180</td>
+      <td class="src">Jeskynní troll <span class="dim">7%</span> · 🛒 obchod · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Stříbrná šavle</span></td>
+      <td>⚔️ Útok +12</td>
+      <td class="num">320</td>
+      <td class="src">Ghúl <span class="dim">5%</span> · 🛒 obchod · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Rytířská čepel</span></td>
+      <td>⚔️ Útok +16</td>
+      <td class="num">650</td>
+      <td class="src">Bažinná hrůza <span class="dim">5%</span> · Prokletý rytíř <span class="dim">8%</span> · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Válečné kladivo</span></td>
+      <td>⚔️ Útok +20</td>
+      <td class="num">1000</td>
+      <td class="src">Kamenný golem <span class="dim">5%</span> · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Plamenný meč</span></td>
+      <td>⚔️ Útok +26</td>
+      <td class="num">2200</td>
+      <td class="src">Upíří lord <span class="dim">5%</span> · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Dýka stínů</span></td>
+      <td>⚔️ Útok +30</td>
+      <td class="num">3200</td>
+      <td class="src">Přízrak <span class="dim">4%</span> · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Drakobijec</span></td>
+      <td>⚔️ Útok +40</td>
+      <td class="num">8000</td>
+      <td class="src">🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Obsidiánová čepel</span></td>
+      <td>⚔️ Útok +50</td>
+      <td class="num">14000</td>
+      <td class="src">Hrobový přízrak <span class="dim">4%</span> · Lichův učedník <span class="dim">5%</span> · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Démonický sekáček</span></td>
+      <td>⚔️ Útok +62</td>
+      <td class="num">24000</td>
+      <td class="src">Plamenný džin <span class="dim">5%</span> · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Sekera věčné zimy</span></td>
+      <td>⚔️ Útok +75</td>
+      <td class="num">38000</td>
+      <td class="src">Sněžný trol <span class="dim">5%</span> · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Čepel Pána draků</span></td>
+      <td>⚔️ Útok +90</td>
+      <td class="num">65000</td>
+      <td class="src">Dračí kněz <span class="dim">2%</span> · Prastarý drak <span class="dim">3%</span> · 🐲 boss (top 3)</td>
+    </tr></tbody></table></div>
+    <h3>🥋 Zbroj</h3><div class="tw"><table><thead><tr><th>Předmět</th><th>Vlastnost</th><th>🪙 Cena</th><th>Kde získat</th></tr></thead><tbody>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Plátěná košile</span></td>
+      <td>🛡 Obrana +1</td>
+      <td class="num">12</td>
+      <td class="src">🛒 obchod</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Kožená zbroj</span></td>
+      <td>🛡 Obrana +3</td>
+      <td class="num">60</td>
+      <td class="src">🛒 obchod</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Kroužková zbroj</span></td>
+      <td>🛡 Obrana +6</td>
+      <td class="num">200</td>
+      <td class="src">Kostlivec <span class="dim">4%</span> · 🛒 obchod · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Šupinová zbroj</span></td>
+      <td>🛡 Obrana +8</td>
+      <td class="num">380</td>
+      <td class="src">Harpyje <span class="dim">5%</span> · 🛒 obchod</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Plátová zbroj</span></td>
+      <td>🛡 Obrana +12</td>
+      <td class="num">800</td>
+      <td class="src">Zlobr <span class="dim">5%</span> · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Začarovaný hábit</span></td>
+      <td>🛡 Obrana +16</td>
+      <td class="num">2500</td>
+      <td class="src">Chrlič <span class="dim">4%</span> · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Zbroj z dračích šupin</span></td>
+      <td>🛡 Obrana +24</td>
+      <td class="num">9000</td>
+      <td class="src">🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Kostěná zbroj</span></td>
+      <td>🛡 Obrana +30</td>
+      <td class="num">14000</td>
+      <td class="src">Kostěný rytíř <span class="dim">4%</span> · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Pekelná zbroj</span></td>
+      <td>🛡 Obrana +37</td>
+      <td class="num">23000</td>
+      <td class="src">Magmový golem <span class="dim">4%</span> · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Ledovcová zbroj</span></td>
+      <td>🛡 Obrana +45</td>
+      <td class="num">36000</td>
+      <td class="src">Ledový stín <span class="dim">4%</span> · Ledová wyverna <span class="dim">4%</span> · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Pláty Pána draků</span></td>
+      <td>🛡 Obrana +54</td>
+      <td class="num">60000</td>
+      <td class="src">Prastarý drak <span class="dim">3%</span> · 🐲 boss (top 3)</td>
+    </tr></tbody></table></div>
+    <h3>🧪 Lektvary</h3><div class="tw"><table><thead><tr><th>Předmět</th><th>Vlastnost</th><th>🪙 Cena</th><th>Kde získat</th></tr></thead><tbody>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Malý léčivý lektvar</span></td>
+      <td>❤️ Léčí 30</td>
+      <td class="num">10</td>
+      <td class="src">Lesní vlk <span class="dim">10%</span> · Divoký kanec <span class="dim">10%</span> · 🛒 obchod</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Střední léčivý lektvar</span></td>
+      <td>❤️ Léčí 90</td>
+      <td class="num">35</td>
+      <td class="src">Jeskynní troll <span class="dim">15%</span> · Horský vlk <span class="dim">15%</span> · 🛒 obchod · ⚗️ alchymista · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Velký léčivý lektvar</span></td>
+      <td>❤️ Léčí 250</td>
+      <td class="num">110</td>
+      <td class="src">Bažinná čarodějnice <span class="dim">12%</span> · Zlobr <span class="dim">15%</span> · Ghúl z krypty <span class="dim">8%</span> · Lichův učedník <span class="dim">12%</span> · 🛒 obchod · ⚗️ alchymista · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Vznešený léčivý lektvar</span></td>
+      <td>❤️ Léčí 600</td>
+      <td class="num">300</td>
+      <td class="src">Ohnivý ďáblík <span class="dim">5%</span> · Mrazivý vlk <span class="dim">6%</span> · Dračí kněz <span class="dim">10%</span> · 🛒 obchod · ⚗️ alchymista · 🐲 boss (top 3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Lektvar síly</span></td>
+      <td>+25% útoku na 5 bojů <span class="dim">(kromě arény)</span></td>
+      <td class="num">60</td>
+      <td class="src">🛒 obchod · ⚗️ alchymista</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Lektvar kamenné kůže</span></td>
+      <td>+25% obrany na 5 bojů <span class="dim">(kromě arény)</span></td>
+      <td class="num">60</td>
+      <td class="src">🛒 obchod · ⚗️ alchymista</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Lektvar zuřivosti</span></td>
+      <td>šance na krit 25% na 5 bojů <span class="dim">(kromě arény)</span></td>
+      <td class="num">90</td>
+      <td class="src">🛒 obchod · ⚗️ alchymista</td>
+    </tr></tbody></table></div>
+    <h3>📦 Materiály</h3><div class="tw"><table><thead><tr><th>Předmět</th><th>Vlastnost</th><th>🪙 Cena</th><th>Kde získat</th></tr></thead><tbody>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Drahokam</span></td>
+      <td>—</td>
+      <td class="num">40</td>
+      <td class="src">Lesní vlk <span class="dim">2%</span> · Divoký kanec <span class="dim">2%</span> · Lesní pavouk <span class="dim">2%</span> · Goblin zvěd <span class="dim">2%</span> · Jeskynní netopýr <span class="dim">3%</span> · Goblin válečník <span class="dim">3%</span> · Kostlivec <span class="dim">3%</span> · Jeskynní troll <span class="dim">3%</span> · Obří pijavice <span class="dim">3%</span> · Ghúl <span class="dim">3%</span> · Bažinná čarodějnice <span class="dim">3%</span> · Bažinná hrůza <span class="dim">3%</span> · Horský vlk <span class="dim">4%</span> · Harpyje <span class="dim">4%</span> · Kamenný golem <span class="dim">4%</span> · Zlobr <span class="dim">4%</span> · Prokletý rytíř <span class="dim">5%</span> · Přízrak <span class="dim">5%</span> · Chrlič <span class="dim">5%</span> · Upíří lord <span class="dim">5%</span> · Ghúl z krypty <span class="dim">6%</span> · Kostěný rytíř <span class="dim">6%</span> · Hrobový přízrak <span class="dim">6%</span> · Lichův učedník <span class="dim">6%</span> · Popelavý ohař <span class="dim">7%</span> · Ohnivý ďáblík <span class="dim">7%</span> · Magmový golem <span class="dim">7%</span> · Plamenný džin <span class="dim">7%</span> · Mrazivý vlk <span class="dim">8%</span> · Ledový stín <span class="dim">8%</span> · Sněžný trol <span class="dim">8%</span> · Ledová wyverna <span class="dim">8%</span> · Stopař trhliny <span class="dim">10%</span> · Mladý drak <span class="dim">10%</span> · Dračí kněz <span class="dim">10%</span> · Prastarý drak <span class="dim">12%</span> · ⚗️ alchymista · 🐲 boss (top 3)<div class="use">→ ⚒️ broušení u kováře</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Vlčí kožešina</span></td>
+      <td>—</td>
+      <td class="num">6</td>
+      <td class="src">Lesní vlk <span class="dim">45%</span> · Horský vlk <span class="dim">60%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Kančí kel</span></td>
+      <td>—</td>
+      <td class="num">7</td>
+      <td class="src">Divoký kanec <span class="dim">40%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Pavoučí hedvábí</span></td>
+      <td>—</td>
+      <td class="num">14</td>
+      <td class="src">Lesní pavouk <span class="dim">35%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Gobliní ucho</span></td>
+      <td>—</td>
+      <td class="num">5</td>
+      <td class="src">Goblin zvěd <span class="dim">50%</span> · Goblin válečník <span class="dim">50%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Netopýří křídlo</span></td>
+      <td>—</td>
+      <td class="num">8</td>
+      <td class="src">Jeskynní netopýr <span class="dim">50%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Kostní prach</span></td>
+      <td>—</td>
+      <td class="num">18</td>
+      <td class="src">Kostlivec <span class="dim">45%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Trollí kůže</span></td>
+      <td>—</td>
+      <td class="num">60</td>
+      <td class="src">Jeskynní troll <span class="dim">40%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Sliz pijavice</span></td>
+      <td>—</td>
+      <td class="num">10</td>
+      <td class="src">Obří pijavice <span class="dim">50%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Ghúlí dráp</span></td>
+      <td>—</td>
+      <td class="num">25</td>
+      <td class="src">Ghúl <span class="dim">45%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Bažinná esence</span></td>
+      <td>—</td>
+      <td class="num">70</td>
+      <td class="src">Bažinná čarodějnice <span class="dim">35%</span> · Bažinná hrůza <span class="dim">50%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Pero harpyje</span></td>
+      <td>—</td>
+      <td class="num">30</td>
+      <td class="src">Harpyje <span class="dim">50%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Jádro golema</span></td>
+      <td>—</td>
+      <td class="num">90</td>
+      <td class="src">Kamenný golem <span class="dim">35%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Zub zlobra</span></td>
+      <td>—</td>
+      <td class="num">35</td>
+      <td class="src">Zlobr <span class="dim">50%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Prokletý emblém</span></td>
+      <td>—</td>
+      <td class="num">120</td>
+      <td class="src">Prokletý rytíř <span class="dim">45%</span> · Přízrak <span class="dim">50%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Upíří tesák</span></td>
+      <td>—</td>
+      <td class="num">250</td>
+      <td class="src">Upíří lord <span class="dim">40%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Úlomek krystalu</span></td>
+      <td>—</td>
+      <td class="num">300</td>
+      <td class="src">Chrlič <span class="dim">30%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Prastará relikvie</span></td>
+      <td>—</td>
+      <td class="num">1000</td>
+      <td class="src">Upíří lord <span class="dim">2%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Hrobový prach</span></td>
+      <td>—</td>
+      <td class="num">22</td>
+      <td class="src">Ghúl z krypty <span class="dim">50%</span> · Kostěný rytíř <span class="dim">40%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Lichova kost</span></td>
+      <td>—</td>
+      <td class="num">45</td>
+      <td class="src">Kostěný rytíř <span class="dim">25%</span> · Hrobový přízrak <span class="dim">45%</span> · Lichův učedník <span class="dim">50%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Žhnoucí střep</span></td>
+      <td>—</td>
+      <td class="num">60</td>
+      <td class="src">Popelavý ohař <span class="dim">50%</span> · Ohnivý ďáblík <span class="dim">45%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Démoní roh</span></td>
+      <td>—</td>
+      <td class="num">110</td>
+      <td class="src">Ohnivý ďáblík <span class="dim">20%</span> · Magmový golem <span class="dim">35%</span> · Plamenný džin <span class="dim">45%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Věčný led</span></td>
+      <td>—</td>
+      <td class="num">90</td>
+      <td class="src">Mrazivý vlk <span class="dim">50%</span> · Ledový stín <span class="dim">45%</span> · Sněžný trol <span class="dim">40%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Šupina wyverny</span></td>
+      <td>—</td>
+      <td class="num">160</td>
+      <td class="src">Ledová wyverna <span class="dim">50%</span> · Mladý drak <span class="dim">30%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Dračí krev</span></td>
+      <td>—</td>
+      <td class="num">220</td>
+      <td class="src">Stopař trhliny <span class="dim">40%</span> · Mladý drak <span class="dim">45%</span> · Prastarý drak <span class="dim">50%</span><div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Krystal trhliny</span></td>
+      <td>—</td>
+      <td class="num">400</td>
+      <td class="src">Stopař trhliny <span class="dim">12%</span> · Dračí kněz <span class="dim">30%</span> · Prastarý drak <span class="dim">25%</span> · 🐲 boss (top 3)<div class="use">→ ⚗️ recepty alchymisty</div></td>
+    </tr></tbody></table></div></section>
+<section id="smith" class="">
+    <p>Kovář na tržním náměstí brousí nasazenou zbraň a zbroj — až do <b>+12</b>. Každá úroveň broušení dává <b>+4%</b> k vlastnosti předmětu (minimálně +1 za každé 3 úrovně).</p>
+    <p>Cena pokusu: <b>stříbro</b> (12% ceny předmětu × cílová úroveň) + <b>drahokamy</b> 💎.</p>
+    <p>⚠️ Do +6 bezpečné. Od +7 neúspěch sníží broušení o 1 úroveň (stříbro a drahokamy propadnou).</p>
+    <div class="tw"><table><thead><tr><th>Broušení</th><th>💎 Drahokamy</th><th>🎯 Šance</th><th>Při neúspěchu</th></tr></thead><tbody><tr><td>+1</td><td class="num">1</td><td class="num">100%</td><td>—</td></tr><tr><td>+2</td><td class="num">1</td><td class="num">100%</td><td>—</td></tr><tr><td>+3</td><td class="num">1</td><td class="num">100%</td><td>—</td></tr><tr><td>+4</td><td class="num">2</td><td class="num">100%</td><td>—</td></tr><tr><td>+5</td><td class="num">2</td><td class="num">100%</td><td>—</td></tr><tr><td>+6</td><td class="num">2</td><td class="num">100%</td><td>—</td></tr><tr><td>+7</td><td class="num">3</td><td class="num">80%</td><td><span class="warn">−1 úroveň</span></td></tr><tr><td>+8</td><td class="num">3</td><td class="num">70%</td><td><span class="warn">−1 úroveň</span></td></tr><tr><td>+9</td><td class="num">3</td><td class="num">60%</td><td><span class="warn">−1 úroveň</span></td></tr><tr><td>+10</td><td class="num">4</td><td class="num">50%</td><td><span class="warn">−1 úroveň</span></td></tr><tr><td>+11</td><td class="num">4</td><td class="num">40%</td><td><span class="warn">−1 úroveň</span></td></tr><tr><td>+12</td><td class="num">4</td><td class="num">30%</td><td><span class="warn">−1 úroveň</span></td></tr></tbody></table></div></section>
+<section id="alchemy" class=""><p>Alchymista na tržním náměstí vaří lektvary z trofejí vašich lovů — levněji, než koupit hotové v obchodě. Bojové lektvary působí uvedený počet bojů (nabití se spotřebuje při vstupu do boje, v aréně jsou vypnuté).</p><div class="grid"><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#8fc97a">🟢 Lektvar síly</span></h3>
+      <p class="dim">+25% útoku na 5 bojů <span class="dim">(kromě arény)</span></p>
+      <p><b>Přísady:</b><br><span class="item" style="color:#c9c4b8">⚪️ Vlčí kožešina</span> ×2<br><span class="item" style="color:#c9c4b8">⚪️ Kančí kel</span> ×1</p>
+      <p>💰 Práce: <b>25 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#8fc97a">🟢 Lektvar kamenné kůže</span></h3>
+      <p class="dim">+25% obrany na 5 bojů <span class="dim">(kromě arény)</span></p>
+      <p><b>Přísady:</b><br><span class="item" style="color:#8fc97a">🟢 Kostní prach</span> ×2<br><span class="item" style="color:#c9c4b8">⚪️ Netopýří křídlo</span> ×2</p>
+      <p>💰 Práce: <b>25 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#7aa8e0">🔵 Lektvar zuřivosti</span></h3>
+      <p class="dim">šance na krit 25% na 5 bojů <span class="dim">(kromě arény)</span></p>
+      <p><b>Přísady:</b><br><span class="item" style="color:#8fc97a">🟢 Pavoučí hedvábí</span> ×1<br><span class="item" style="color:#8fc97a">🟢 Ghúlí dráp</span> ×1</p>
+      <p>💰 Práce: <b>40 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#8fc97a">🟢 Střední léčivý lektvar</span></h3>
+      <p class="dim">❤️ Léčí 90</p>
+      <p><b>Přísady:</b><br><span class="item" style="color:#c9c4b8">⚪️ Sliz pijavice</span> ×2</p>
+      <p>💰 Práce: <b>10 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#7aa8e0">🔵 Velký léčivý lektvar</span></h3>
+      <p class="dim">❤️ Léčí 250</p>
+      <p><b>Přísady:</b><br><span class="item" style="color:#7aa8e0">🔵 Bažinná esence</span> ×1<br><span class="item" style="color:#7aa8e0">🔵 Trollí kůže</span> ×1</p>
+      <p>💰 Práce: <b>30 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#bd8ce0">🟣 Vznešený léčivý lektvar</span></h3>
+      <p class="dim">❤️ Léčí 600</p>
+      <p><b>Přísady:</b><br><span class="item" style="color:#7aa8e0">🔵 Dračí krev</span> ×1<br><span class="item" style="color:#8fc97a">🟢 Věčný led</span> ×1</p>
+      <p>💰 Práce: <b>60 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#8fc97a">🟢 Lektvar síly</span> ×3</h3>
+      <p class="dim">+25% útoku na 5 bojů <span class="dim">(kromě arény)</span></p>
+      <p><b>Přísady:</b><br><span class="item" style="color:#c9c4b8">⚪️ Hrobový prach</span> ×2<br><span class="item" style="color:#7aa8e0">🔵 Démoní roh</span> ×1</p>
+      <p>💰 Práce: <b>60 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#8fc97a">🟢 Lektvar kamenné kůže</span> ×3</h3>
+      <p class="dim">+25% obrany na 5 bojů <span class="dim">(kromě arény)</span></p>
+      <p><b>Přísady:</b><br><span class="item" style="color:#8fc97a">🟢 Lichova kost</span> ×2<br><span class="item" style="color:#8fc97a">🟢 Věčný led</span> ×1</p>
+      <p>💰 Práce: <b>60 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#7aa8e0">🔵 Lektvar zuřivosti</span> ×3</h3>
+      <p class="dim">šance na krit 25% na 5 bojů <span class="dim">(kromě arény)</span></p>
+      <p><b>Přísady:</b><br><span class="item" style="color:#8fc97a">🟢 Žhnoucí střep</span> ×2<br><span class="item" style="color:#7aa8e0">🔵 Šupina wyverny</span> ×1</p>
+      <p>💰 Práce: <b>90 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#7aa8e0">🔵 Drahokam</span> ×2</h3>
+      <p class="dim">—</p>
+      <p><b>Přísady:</b><br><span class="item" style="color:#bd8ce0">🟣 Krystal trhliny</span> ×1</p>
+      <p>💰 Práce: <b>100 🪙</b></p>
+    </div></div></div></section>
+<section id="basics" class=""><div class="card"><div class="cbody"><h3>✨ Zkušenosti a úrovně</h3><p>Zkušenosti dávají vítězství nad nestvůrami, úkoly a světový boss. Za každou úroveň: +3 body vlastností (⚔️ síla / 🛡 obrana / ❤️ výdrž) a +5 k max. HP. Zdraví se s novou úrovní plně obnoví.</p></div></div><div class="card"><div class="cbody"><h3>❤️ Zdraví</h3><p>Mimo boj se HP obnovuje samo: 1 HP každých 20 sekund. Léčitel ve vesnici vyléčí vše za stříbro (5 🪙 × vaše úroveň).</p></div></div><div class="card"><div class="cbody"><h3>💀 Porážka</h3><p>Prohra v PvE: proberete se ve vesnici s 30 % HP a ztratíte 10 % stříbra. V aréně se zdraví nespotřebovává — boje jsou tréninkové.</p></div></div><div class="card"><div class="cbody"><h3>🏟 Aréna</h3><p>PvP podle ratingu (±5 úrovní): výhra +25 ratingu a stříbro, prohra −20. Lektvary alchymisty v aréně nepůsobí.</p></div></div><div class="card"><div class="cbody"><h3>🐲 Světový boss</h3><p>Společný nepřítel všech hráčů. Odměna se dělí podle způsobeného poškození, top 3 získají vzácné trofeje a drahokamy. Nový boss za 30 minut po vítězství.</p></div></div><div class="card"><div class="cbody"><h3>💰 Obchodování</h3><p>Obchod vykupuje věci za polovinu ceny. Na tržním náměstí můžete vystavit nabídku ostatním hráčům — cenu si určíte sami.</p></div></div><div class="card"><div class="cbody"><h3>💡 Nápady</h3><p>Tlačítko „Nápad" v profilu — návrhy jdou přímo vývojářům. Nejlepší nápady hráčů už jsou ve hře!</p></div></div>
+    <h3>✨ Zkušenosti do další úrovně</h3>
+    <div class="tw"><table class="narrow"><thead><tr><th>Úroveň</th><th>Potřeba zkušeností</th></tr></thead><tbody><tr><td class="num">1</td><td class="num">100</td></tr><tr><td class="num">2</td><td class="num">263</td></tr><tr><td class="num">3</td><td class="num">465</td></tr><tr><td class="num">5</td><td class="num">951</td></tr><tr><td class="num">8</td><td class="num">1 837</td></tr><tr><td class="num">10</td><td class="num">2 511</td></tr><tr><td class="num">15</td><td class="num">4 431</td></tr><tr><td class="num">20</td><td class="num">6 628</td></tr><tr><td class="num">25</td><td class="num">9 059</td></tr><tr><td class="num">30</td><td class="num">11 694</td></tr><tr><td class="num">40</td><td class="num">17 493</td></tr><tr><td class="num">50</td><td class="num">23 908</td></tr></tbody></table></div></section>
+<footer>⚔️ Automaticky generováno z herních dat</footer>
+</div>
+<script>
+const tabs=document.querySelectorAll('nav button');
+const secs=document.querySelectorAll('section');
+tabs.forEach(b=>b.addEventListener('click',()=>{
+  tabs.forEach(x=>x.classList.remove('on'));secs.forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');document.getElementById(b.dataset.t).classList.add('on');
+  window.scrollTo({top:0});
+}));
+const q=document.getElementById('itemSearch');
+if(q)q.addEventListener('input',()=>{
+  const v=q.value.trim().toLowerCase();
+  document.querySelectorAll('#items tbody tr').forEach(tr=>{
+    tr.style.display=!v||tr.textContent.toLowerCase().includes(v)?'':'none';
+  });
+});
+if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();
+  try{Telegram.WebApp.setHeaderColor('#16100a');Telegram.WebApp.setBackgroundColor('#16100a');}catch(e){}}
+</script>
+</body>
+</html>

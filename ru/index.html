@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Old Village — Справочник</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{
+  --bg:#16100a; --card:#221a10; --card2:#2a2013; --line:#42341f;
+  --ink:#ead9b7; --dim:#a08a5f; --gold:#d9a94f; --warn:#e07a5f;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg); color:var(--ink);
+  font:16px/1.55 Georgia,'Times New Roman',serif;
+  background-image:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(217,169,79,.08),transparent),
+                   radial-gradient(ellipse 60% 40% at 90% 110%,rgba(217,169,79,.05),transparent);
+  min-height:100vh;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 14px 48px}
+header{padding:22px 0 10px;text-align:center}
+header h1{
+  font-family:'Cormorant',Georgia,serif;font-size:30px;font-weight:700;color:var(--gold);
+  letter-spacing:.5px;text-shadow:0 2px 12px rgba(217,169,79,.25);
+}
+header .sub{color:var(--dim);font-size:13px;font-style:italic}
+nav{
+  position:sticky;top:0;z-index:5;display:flex;gap:6px;overflow-x:auto;
+  padding:10px 0;background:linear-gradient(var(--bg) 82%,transparent);
+  scrollbar-width:none;
+}
+nav::-webkit-scrollbar{display:none}
+nav button{
+  flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--dim);
+  font:14px Georgia,serif;padding:8px 13px;border-radius:20px;cursor:pointer;white-space:nowrap;
+}
+nav button.on{background:var(--gold);border-color:var(--gold);color:#241a0e;font-weight:700}
+section{display:none;padding-top:8px}
+section.on{display:block}
+h3{font-family:'Cormorant',Georgia,serif;font-size:21px;color:var(--gold);margin:20px 0 8px}
+h4{font-family:'Cormorant',Georgia,serif;font-size:17px;color:var(--gold);margin:12px 0 6px}
+p{margin:8px 0}
+.dim{color:var(--dim)}
+.warn{color:var(--warn)}
+.center{text-align:center}
+.lvl{font-size:13px;color:var(--dim);font-weight:400;white-space:nowrap}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  overflow:hidden;margin:14px 0;box-shadow:0 4px 18px rgba(0,0,0,.35);
+}
+.card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;border-bottom:1px solid var(--line)}
+.cbody{padding:12px 14px 14px}
+.cbody h3{margin-top:2px}
+.grid{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:560px){.grid{grid-template-columns:1fr 1fr;gap:0 14px}}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:3px 9px;font-size:13.5px}
+.tw{overflow-x:auto;margin:6px 0 14px;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:var(--card)}
+table.narrow{max-width:340px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;background:var(--card2);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.num{white-space:nowrap;font-variant-numeric:tabular-nums}
+td.src{font-size:13px;color:var(--dim);min-width:150px}
+td.src .item,.use{font-size:13px}
+.use{margin-top:3px;color:var(--gold)}
+.item{white-space:nowrap}
+.search{
+  width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink);font:15px Georgia,serif;outline:none;margin-top:10px;
+}
+.search::placeholder{color:var(--dim)}
+footer{margin-top:34px;text-align:center;color:var(--dim);font-size:12px;font-style:italic}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><h1>🏘 Old Village</h1><div class="sub">Справочник</div></header>
+<nav><button data-t="locations" class="on">🗺 Локации</button><button data-t="bosses" class="">🐲 Боссы</button><button data-t="items" class="">🎒 Предметы</button><button data-t="smith" class="">⚒️ Кузница</button><button data-t="alchemy" class="">🧪 Алхимия</button><button data-t="basics" class="">📜 Основы</button></nav>
+<section id="locations" class="on"><div class="card">
+      <img src="../img/loc-village.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🏘 Деревня Дубрава <span class="lvl">с уровня 1</span></h3>
+        <p class="dim">Тихая деревня на краю королевства — сердце жизни героев. Здесь есть лавка, рынок, арена, лекарь и доска заданий.</p>
+        
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-forest.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🌲 Тёмный лес <span class="lvl">с уровня 1</span></h3>
+        <p class="dim">Древние деревья заслоняют солнце. Между стволами рыщут волки, кабаны и гоблины-разведчики.</p>
+        <h4>Обитатели</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Ур.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Опыт</th><th>🪙 Серебро</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Лесной волк</td><td class="num">1</td><td class="num">25</td><td class="num">5</td><td class="num">14</td><td class="num">3–8</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Волчья шкура</span> <span class="dim">45%</span><br><span class="item" style="color:#c9c4b8">⚪️ Малое зелье лечения</span> <span class="dim">10%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">2%</span></td></tr><tr><td>Дикий кабан</td><td class="num">2</td><td class="num">38</td><td class="num">7</td><td class="num">20</td><td class="num">5–12</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Клык кабана</span> <span class="dim">40%</span><br><span class="item" style="color:#c9c4b8">⚪️ Малое зелье лечения</span> <span class="dim">10%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">2%</span></td></tr><tr><td>Лесной паук</td><td class="num">3</td><td class="num">45</td><td class="num">9</td><td class="num">27</td><td class="num">7–15</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Паучий шёлк</span> <span class="dim">35%</span><br><span class="item" style="color:#c9c4b8">⚪️ Деревянная дубина</span> <span class="dim">6%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">2%</span></td></tr><tr><td>Гоблин-разведчик</td><td class="num">4</td><td class="num">55</td><td class="num">11</td><td class="num">35</td><td class="num">10–22</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Ухо гоблина</span> <span class="dim">50%</span><br><span class="item" style="color:#c9c4b8">⚪️ Охотничий лук</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">2%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-caves.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🕳 Старые пещеры <span class="lvl">с уровня 4</span></h3>
+        <p class="dim">Заброшенные шахты, где теперь хозяйничают гоблины и нежить. Говорят, в глубине живёт тролль.</p>
+        <h4>Обитатели</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Ур.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Опыт</th><th>🪙 Серебро</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Пещерная летучая мышь</td><td class="num">4</td><td class="num">50</td><td class="num">12</td><td class="num">34</td><td class="num">8–18</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Крыло летучей мыши</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">3%</span></td></tr><tr><td>Гоблин-воин</td><td class="num">5</td><td class="num">70</td><td class="num">14</td><td class="num">45</td><td class="num">12–26</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Ухо гоблина</span> <span class="dim">50%</span><br><span class="item" style="color:#c9c4b8">⚪️ Железный меч</span> <span class="dim">6%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">3%</span></td></tr><tr><td>Скелет</td><td class="num">6</td><td class="num">85</td><td class="num">16</td><td class="num">55</td><td class="num">15–30</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Костяная пыль</span> <span class="dim">45%</span><br><span class="item" style="color:#8fc97a">🟢 Кольчуга</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">3%</span></td></tr><tr><td>Пещерный тролль</td><td class="num">8</td><td class="num">130</td><td class="num">20</td><td class="num">85</td><td class="num">25–50</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Шкура тролля</span> <span class="dim">40%</span><br><span class="item" style="color:#8fc97a">🟢 Стальной топор</span> <span class="dim">7%</span><br><span class="item" style="color:#8fc97a">🟢 Среднее зелье лечения</span> <span class="dim">15%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">3%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-swamp.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🐸 Гиблые болота <span class="lvl">с уровня 8</span></h3>
+        <p class="dim">Туман, трясина и запах гнили. Здесь пропадают даже опытные путники — а те, кто возвращается, приносят ценную эссенцию.</p>
+        <h4>Обитатели</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Ур.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Опыт</th><th>🪙 Серебро</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Гигантская пиявка</td><td class="num">8</td><td class="num">110</td><td class="num">19</td><td class="num">75</td><td class="num">18–38</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Слизь пиявки</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">3%</span></td></tr><tr><td>Упырь</td><td class="num">10</td><td class="num">150</td><td class="num">24</td><td class="num">100</td><td class="num">25–55</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Коготь упыря</span> <span class="dim">45%</span><br><span class="item" style="color:#8fc97a">🟢 Серебряная сабля</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">3%</span></td></tr><tr><td>Болотная ведьма</td><td class="num">11</td><td class="num">160</td><td class="num">28</td><td class="num">120</td><td class="num">30–65</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Болотная эссенция</span> <span class="dim">35%</span><br><span class="item" style="color:#7aa8e0">🔵 Большое зелье лечения</span> <span class="dim">12%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">3%</span></td></tr><tr><td>Болотный ужас</td><td class="num">13</td><td class="num">220</td><td class="num">32</td><td class="num">160</td><td class="num">45–90</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Болотная эссенция</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Клинок рыцаря</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">3%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-mountains.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>⛰ Горный перевал <span class="lvl">с уровня 13</span></h3>
+        <p class="dim">Ледяной ветер и отвесные скалы. На перевале охотятся гарпии, а из камня поднимаются древние големы.</p>
+        <h4>Обитатели</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Ур.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Опыт</th><th>🪙 Серебро</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Горный волк</td><td class="num">13</td><td class="num">200</td><td class="num">33</td><td class="num">150</td><td class="num">40–80</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Волчья шкура</span> <span class="dim">60%</span><br><span class="item" style="color:#8fc97a">🟢 Среднее зелье лечения</span> <span class="dim">15%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">4%</span></td></tr><tr><td>Гарпия</td><td class="num">14</td><td class="num">220</td><td class="num">37</td><td class="num">175</td><td class="num">45–95</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Перо гарпии</span> <span class="dim">50%</span><br><span class="item" style="color:#8fc97a">🟢 Чешуйчатый доспех</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">4%</span></td></tr><tr><td>Каменный голем</td><td class="num">16</td><td class="num">300</td><td class="num">40</td><td class="num">220</td><td class="num">60–120</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Ядро голема</span> <span class="dim">35%</span><br><span class="item" style="color:#7aa8e0">🔵 Боевой молот</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">4%</span></td></tr><tr><td>Огр</td><td class="num">18</td><td class="num">360</td><td class="num">48</td><td class="num">280</td><td class="num">80–160</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Зуб огра</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Латный доспех</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Большое зелье лечения</span> <span class="dim">15%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">4%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-castle.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🏰 Проклятый замок <span class="lvl">с уровня 18</span></h3>
+        <p class="dim">Резиденция падшего лорда-вампира. Лишь сильнейшие герои осмеливаются войти в эти ворота.</p>
+        <h4>Обитатели</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Ур.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Опыт</th><th>🪙 Серебро</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Проклятый рыцарь</td><td class="num">19</td><td class="num">380</td><td class="num">52</td><td class="num">320</td><td class="num">90–180</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Проклятая эмблема</span> <span class="dim">45%</span><br><span class="item" style="color:#7aa8e0">🔵 Клинок рыцаря</span> <span class="dim">8%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">5%</span></td></tr><tr><td>Призрак</td><td class="num">21</td><td class="num">420</td><td class="num">60</td><td class="num">380</td><td class="num">100–210</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Проклятая эмблема</span> <span class="dim">50%</span><br><span class="item" style="color:#bd8ce0">🟣 Кинжал теней</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">5%</span></td></tr><tr><td>Горгулья</td><td class="num">23</td><td class="num">500</td><td class="num">65</td><td class="num">450</td><td class="num">120–240</td><td class="src"><span class="item" style="color:#bd8ce0">🟣 Осколок кристалла</span> <span class="dim">30%</span><br><span class="item" style="color:#bd8ce0">🟣 Зачарованная мантия</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">5%</span></td></tr><tr><td>Лорд-вампир</td><td class="num">25</td><td class="num">600</td><td class="num">75</td><td class="num">600</td><td class="num">160–320</td><td class="src"><span class="item" style="color:#bd8ce0">🟣 Клык вампира</span> <span class="dim">40%</span><br><span class="item" style="color:#bd8ce0">🟣 Пламенный меч</span> <span class="dim">5%</span><br><span class="item" style="color:#e8a755">🟠 Древняя реликвия</span> <span class="dim">2%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">5%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-catacombs.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>⚰️ Забытые катакомбы <span class="lvl">с уровня 25</span></h3>
+        <p class="dim">Под старым кладбищем тянутся бесконечные галереи. Шуршит могильный прах, а во тьме гремят кости давно павших рыцарей.</p>
+        <h4>Обитатели</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Ур.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Опыт</th><th>🪙 Серебро</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Упырь склепа</td><td class="num">26</td><td class="num">680</td><td class="num">78</td><td class="num">700</td><td class="num">180–360</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Могильный прах</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Большое зелье лечения</span> <span class="dim">8%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">6%</span></td></tr><tr><td>Костяной рыцарь</td><td class="num">28</td><td class="num">780</td><td class="num">84</td><td class="num">820</td><td class="num">210–420</td><td class="src"><span class="item" style="color:#c9c4b8">⚪️ Могильный прах</span> <span class="dim">40%</span><br><span class="item" style="color:#8fc97a">🟢 Кость лича</span> <span class="dim">25%</span><br><span class="item" style="color:#bd8ce0">🟣 Костяной доспех</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">6%</span></td></tr><tr><td>Могильный призрак</td><td class="num">29</td><td class="num">850</td><td class="num">88</td><td class="num">900</td><td class="num">230–460</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Кость лича</span> <span class="dim">45%</span><br><span class="item" style="color:#bd8ce0">🟣 Обсидиановый клинок</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">6%</span></td></tr><tr><td>Прислужник лича</td><td class="num">31</td><td class="num">950</td><td class="num">93</td><td class="num">1050</td><td class="num">260–520</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Кость лича</span> <span class="dim">50%</span><br><span class="item" style="color:#bd8ce0">🟣 Обсидиановый клинок</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Большое зелье лечения</span> <span class="dim">12%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">6%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-wastes.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🌋 Выжженные пустоши <span class="lvl">с уровня 31</span></h3>
+        <p class="dim">Выжженная дотла земля дышит жаром. Среди пепла рыщут гончие, а из трещин вырывается подземное пламя.</p>
+        <h4>Обитатели</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Ур.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Опыт</th><th>🪙 Серебро</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Пепельная гончая</td><td class="num">32</td><td class="num">1050</td><td class="num">96</td><td class="num">1150</td><td class="num">280–560</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Тлеющий осколок</span> <span class="dim">50%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">7%</span></td></tr><tr><td>Огненный бес</td><td class="num">34</td><td class="num">1200</td><td class="num">102</td><td class="num">1350</td><td class="num">310–620</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Тлеющий осколок</span> <span class="dim">45%</span><br><span class="item" style="color:#7aa8e0">🔵 Рог демона</span> <span class="dim">20%</span><br><span class="item" style="color:#bd8ce0">🟣 Великое зелье лечения</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">7%</span></td></tr><tr><td>Магмовый голем</td><td class="num">36</td><td class="num">1300</td><td class="num">108</td><td class="num">1550</td><td class="num">340–680</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Рог демона</span> <span class="dim">35%</span><br><span class="item" style="color:#bd8ce0">🟣 Адская кольчуга</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">7%</span></td></tr><tr><td>Пламенный джинн</td><td class="num">38</td><td class="num">1350</td><td class="num">114</td><td class="num">1800</td><td class="num">380–760</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Рог демона</span> <span class="dim">45%</span><br><span class="item" style="color:#bd8ce0">🟣 Демонический тесак</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">7%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-peaks.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🏔 Ледяные пики <span class="lvl">с уровня 38</span></h3>
+        <p class="dim">Вечная метель воет между ледяными скалами. Мороз пробирает до костей, а в белой мгле мелькают крылатые тени.</p>
+        <h4>Обитатели</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Ур.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Опыт</th><th>🪙 Серебро</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Морозный волк</td><td class="num">39</td><td class="num">1500</td><td class="num">117</td><td class="num">2000</td><td class="num">420–840</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Вечный лёд</span> <span class="dim">50%</span><br><span class="item" style="color:#bd8ce0">🟣 Великое зелье лечения</span> <span class="dim">6%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">8%</span></td></tr><tr><td>Ледяная тень</td><td class="num">41</td><td class="num">1650</td><td class="num">123</td><td class="num">2250</td><td class="num">460–920</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Вечный лёд</span> <span class="dim">45%</span><br><span class="item" style="color:#e8a755">🟠 Ледниковая броня</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">8%</span></td></tr><tr><td>Снежный тролль</td><td class="num">42</td><td class="num">1750</td><td class="num">126</td><td class="num">2450</td><td class="num">500–1000</td><td class="src"><span class="item" style="color:#8fc97a">🟢 Вечный лёд</span> <span class="dim">40%</span><br><span class="item" style="color:#e8a755">🟠 Секира вечной зимы</span> <span class="dim">5%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">8%</span></td></tr><tr><td>Ледяная виверна</td><td class="num">44</td><td class="num">1900</td><td class="num">132</td><td class="num">2750</td><td class="num">550–1100</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Чешуя виверны</span> <span class="dim">50%</span><br><span class="item" style="color:#e8a755">🟠 Ледниковая броня</span> <span class="dim">4%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">8%</span></td></tr></tbody></table></div>
+      </div>
+    </div><div class="card">
+      <img src="../img/loc-rift.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🌀 Драконий разлом <span class="lvl">с уровня 44</span></h3>
+        <p class="dim">Расколотая земля, из которой сочится древняя магия. Здесь гнездятся драконы — и лишь величайшие герои возвращаются отсюда живыми.</p>
+        <h4>Обитатели</h4><div class="tw"><table><thead><tr><th>Монстр</th><th>Ур.</th><th>❤️ HP</th><th>⚔️ Атака</th><th>✨ Опыт</th><th>🪙 Серебро</th><th>🎁 Дроп</th></tr></thead><tbody><tr><td>Сталкер разлома</td><td class="num">45</td><td class="num">2100</td><td class="num">135</td><td class="num">3000</td><td class="num">600–1200</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Драконья кровь</span> <span class="dim">40%</span><br><span class="item" style="color:#bd8ce0">🟣 Кристалл разлома</span> <span class="dim">12%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">10%</span></td></tr><tr><td>Юный дрейк</td><td class="num">47</td><td class="num">2300</td><td class="num">141</td><td class="num">3400</td><td class="num">650–1300</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Драконья кровь</span> <span class="dim">45%</span><br><span class="item" style="color:#7aa8e0">🔵 Чешуя виверны</span> <span class="dim">30%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">10%</span></td></tr><tr><td>Драконий жрец</td><td class="num">48</td><td class="num">2500</td><td class="num">144</td><td class="num">3700</td><td class="num">700–1400</td><td class="src"><span class="item" style="color:#bd8ce0">🟣 Кристалл разлома</span> <span class="dim">30%</span><br><span class="item" style="color:#e8a755">🟠 Клинок Повелителя драконов</span> <span class="dim">2%</span><br><span class="item" style="color:#bd8ce0">🟣 Великое зелье лечения</span> <span class="dim">10%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">10%</span></td></tr><tr><td>Древний дракон</td><td class="num">50</td><td class="num">2900</td><td class="num">150</td><td class="num">4300</td><td class="num">800–1600</td><td class="src"><span class="item" style="color:#7aa8e0">🔵 Драконья кровь</span> <span class="dim">50%</span><br><span class="item" style="color:#bd8ce0">🟣 Кристалл разлома</span> <span class="dim">25%</span><br><span class="item" style="color:#e8a755">🟠 Клинок Повелителя драконов</span> <span class="dim">3%</span><br><span class="item" style="color:#e8a755">🟠 Латы Повелителя драконов</span> <span class="dim">3%</span><br><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> <span class="dim">12%</span></td></tr></tbody></table></div>
+      </div>
+    </div></section>
+<section id="bosses" class=""><div class="card">
+      <img src="../img/boss-ancient_ent.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🌳 Древний энт</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоровье: <b>3 000</b></span>
+          <span class="chip">⚔️ Атака: <b>20</b></span>
+          <span class="chip">🛡 Защита: <b>5</b></span>
+        </div>
+        <p>💰 Общая награда: <b>🪙 1 500</b> + <b>✨ 2 000</b> <span class="dim">— делится по нанесённому урону</span></p>
+        <p>🏆 Трофеи топ-3 по урону:<br>1. <span class="item" style="color:#8fc97a">🟢 Стальной топор</span><br>2. <span class="item" style="color:#7aa8e0">🔵 Большое зелье лечения</span><br>3. <span class="item" style="color:#8fc97a">🟢 Среднее зелье лечения</span></p>
+        <p class="dim">Самоцветы топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-goblin_king.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>👺 Король гоблинов</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоровье: <b>6 000</b></span>
+          <span class="chip">⚔️ Атака: <b>30</b></span>
+          <span class="chip">🛡 Защита: <b>8</b></span>
+        </div>
+        <p>💰 Общая награда: <b>🪙 3 000</b> + <b>✨ 4 500</b> <span class="dim">— делится по нанесённому урону</span></p>
+        <p>🏆 Трофеи топ-3 по урону:<br>1. <span class="item" style="color:#7aa8e0">🔵 Клинок рыцаря</span><br>2. <span class="item" style="color:#8fc97a">🟢 Кольчуга</span><br>3. <span class="item" style="color:#7aa8e0">🔵 Большое зелье лечения</span></p>
+        <p class="dim">Самоцветы топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-swamp_leviathan.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🐉 Болотный левиафан</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоровье: <b>12 000</b></span>
+          <span class="chip">⚔️ Атака: <b>45</b></span>
+          <span class="chip">🛡 Защита: <b>12</b></span>
+        </div>
+        <p>💰 Общая награда: <b>🪙 6 000</b> + <b>✨ 9 000</b> <span class="dim">— делится по нанесённому урону</span></p>
+        <p>🏆 Трофеи топ-3 по урону:<br>1. <span class="item" style="color:#7aa8e0">🔵 Боевой молот</span><br>2. <span class="item" style="color:#7aa8e0">🔵 Латный доспех</span><br>3. <span class="item" style="color:#8fc97a">🟢 Серебряная сабля</span></p>
+        <p class="dim">Самоцветы топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-frost_giant.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🧊 Ледяной великан</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоровье: <b>20 000</b></span>
+          <span class="chip">⚔️ Атака: <b>60</b></span>
+          <span class="chip">🛡 Защита: <b>18</b></span>
+        </div>
+        <p>💰 Общая награда: <b>🪙 10 000</b> + <b>✨ 16 000</b> <span class="dim">— делится по нанесённому урону</span></p>
+        <p>🏆 Трофеи топ-3 по урону:<br>1. <span class="item" style="color:#bd8ce0">🟣 Пламенный меч</span><br>2. <span class="item" style="color:#bd8ce0">🟣 Зачарованная мантия</span><br>3. <span class="item" style="color:#7aa8e0">🔵 Боевой молот</span></p>
+        <p class="dim">Самоцветы топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-ash_dragon.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>🔥 Дракон Пепельной горы</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоровье: <b>35 000</b></span>
+          <span class="chip">⚔️ Атака: <b>80</b></span>
+          <span class="chip">🛡 Защита: <b>25</b></span>
+        </div>
+        <p>💰 Общая награда: <b>🪙 20 000</b> + <b>✨ 30 000</b> <span class="dim">— делится по нанесённому урону</span></p>
+        <p>🏆 Трофеи топ-3 по урону:<br>1. <span class="item" style="color:#e8a755">🟠 Драконобой</span><br>2. <span class="item" style="color:#e8a755">🟠 Доспех из драконьей чешуи</span><br>3. <span class="item" style="color:#bd8ce0">🟣 Кинжал теней</span></p>
+        <p class="dim">Самоцветы топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-lich_emperor.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>💀 Император-лич</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоровье: <b>55 000</b></span>
+          <span class="chip">⚔️ Атака: <b>100</b></span>
+          <span class="chip">🛡 Защита: <b>32</b></span>
+        </div>
+        <p>💰 Общая награда: <b>🪙 32 000</b> + <b>✨ 50 000</b> <span class="dim">— делится по нанесённому урону</span></p>
+        <p>🏆 Трофеи топ-3 по урону:<br>1. <span class="item" style="color:#bd8ce0">🟣 Обсидиановый клинок</span><br>2. <span class="item" style="color:#bd8ce0">🟣 Костяной доспех</span><br>3. <span class="item" style="color:#bd8ce0">🟣 Великое зелье лечения</span></p>
+        <p class="dim">Самоцветы топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-infernal_overlord.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>😈 Адский владыка</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоровье: <b>85 000</b></span>
+          <span class="chip">⚔️ Атака: <b>125</b></span>
+          <span class="chip">🛡 Защита: <b>40</b></span>
+        </div>
+        <p>💰 Общая награда: <b>🪙 50 000</b> + <b>✨ 80 000</b> <span class="dim">— делится по нанесённому урону</span></p>
+        <p>🏆 Трофеи топ-3 по урону:<br>1. <span class="item" style="color:#bd8ce0">🟣 Демонический тесак</span><br>2. <span class="item" style="color:#bd8ce0">🟣 Адская кольчуга</span><br>3. <span class="item" style="color:#bd8ce0">🟣 Великое зелье лечения</span></p>
+        <p class="dim">Самоцветы топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-frost_empress.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>❄️ Ледяная императрица</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоровье: <b>130 000</b></span>
+          <span class="chip">⚔️ Атака: <b>155</b></span>
+          <span class="chip">🛡 Защита: <b>50</b></span>
+        </div>
+        <p>💰 Общая награда: <b>🪙 75 000</b> + <b>✨ 125 000</b> <span class="dim">— делится по нанесённому урону</span></p>
+        <p>🏆 Трофеи топ-3 по урону:<br>1. <span class="item" style="color:#e8a755">🟠 Секира вечной зимы</span><br>2. <span class="item" style="color:#e8a755">🟠 Ледниковая броня</span><br>3. <span class="item" style="color:#bd8ce0">🟣 Великое зелье лечения</span></p>
+        <p class="dim">Самоцветы топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><div class="card">
+      <img src="../img/boss-dragonlord.jpg" alt="" loading="lazy">
+      <div class="cbody">
+        <h3>👑 Повелитель драконов</h3>
+        <div class="chips">
+          <span class="chip">❤️ Здоровье: <b>200 000</b></span>
+          <span class="chip">⚔️ Атака: <b>190</b></span>
+          <span class="chip">🛡 Защита: <b>62</b></span>
+        </div>
+        <p>💰 Общая награда: <b>🪙 120 000</b> + <b>✨ 200 000</b> <span class="dim">— делится по нанесённому урону</span></p>
+        <p>🏆 Трофеи топ-3 по урону:<br>1. <span class="item" style="color:#e8a755">🟠 Клинок Повелителя драконов</span><br>2. <span class="item" style="color:#e8a755">🟠 Латы Повелителя драконов</span><br>3. <span class="item" style="color:#bd8ce0">🟣 Кристалл разлома</span></p>
+        <p class="dim">Самоцветы топ-3: 💎 3 / 2 / 1</p>
+      </div>
+    </div><p class="dim center">⏳ Следующий босс — через 30 мин после победы</p></section>
+<section id="items" class="">
+    <input class="search" id="itemSearch" type="search" placeholder="🔍 Поиск по предметам…">
+    <h3>🗡 Оружие</h3><div class="tw"><table><thead><tr><th>Предмет</th><th>Характеристика</th><th>🪙 Цена</th><th>Где добыть</th></tr></thead><tbody>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Ржавый меч</span></td>
+      <td>⚔️ Атака +2</td>
+      <td class="num">15</td>
+      <td class="src">🛒 лавка</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Деревянная дубина</span></td>
+      <td>⚔️ Атака +3</td>
+      <td class="num">25</td>
+      <td class="src">Лесной паук <span class="dim">6%</span> · 🛒 лавка</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Охотничий лук</span></td>
+      <td>⚔️ Атака +4</td>
+      <td class="num">45</td>
+      <td class="src">Гоблин-разведчик <span class="dim">5%</span> · 🛒 лавка</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Железный меч</span></td>
+      <td>⚔️ Атака +6</td>
+      <td class="num">90</td>
+      <td class="src">Гоблин-воин <span class="dim">6%</span> · 🛒 лавка</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Стальной топор</span></td>
+      <td>⚔️ Атака +9</td>
+      <td class="num">180</td>
+      <td class="src">Пещерный тролль <span class="dim">7%</span> · 🛒 лавка · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Серебряная сабля</span></td>
+      <td>⚔️ Атака +12</td>
+      <td class="num">320</td>
+      <td class="src">Упырь <span class="dim">5%</span> · 🛒 лавка · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Клинок рыцаря</span></td>
+      <td>⚔️ Атака +16</td>
+      <td class="num">650</td>
+      <td class="src">Болотный ужас <span class="dim">5%</span> · Проклятый рыцарь <span class="dim">8%</span> · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Боевой молот</span></td>
+      <td>⚔️ Атака +20</td>
+      <td class="num">1000</td>
+      <td class="src">Каменный голем <span class="dim">5%</span> · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Пламенный меч</span></td>
+      <td>⚔️ Атака +26</td>
+      <td class="num">2200</td>
+      <td class="src">Лорд-вампир <span class="dim">5%</span> · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Кинжал теней</span></td>
+      <td>⚔️ Атака +30</td>
+      <td class="num">3200</td>
+      <td class="src">Призрак <span class="dim">4%</span> · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Драконобой</span></td>
+      <td>⚔️ Атака +40</td>
+      <td class="num">8000</td>
+      <td class="src">🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Обсидиановый клинок</span></td>
+      <td>⚔️ Атака +50</td>
+      <td class="num">14000</td>
+      <td class="src">Могильный призрак <span class="dim">4%</span> · Прислужник лича <span class="dim">5%</span> · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Демонический тесак</span></td>
+      <td>⚔️ Атака +62</td>
+      <td class="num">24000</td>
+      <td class="src">Пламенный джинн <span class="dim">5%</span> · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Секира вечной зимы</span></td>
+      <td>⚔️ Атака +75</td>
+      <td class="num">38000</td>
+      <td class="src">Снежный тролль <span class="dim">5%</span> · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Клинок Повелителя драконов</span></td>
+      <td>⚔️ Атака +90</td>
+      <td class="num">65000</td>
+      <td class="src">Драконий жрец <span class="dim">2%</span> · Древний дракон <span class="dim">3%</span> · 🐲 босс (топ-3)</td>
+    </tr></tbody></table></div>
+    <h3>🥋 Броня</h3><div class="tw"><table><thead><tr><th>Предмет</th><th>Характеристика</th><th>🪙 Цена</th><th>Где добыть</th></tr></thead><tbody>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Холщовая рубаха</span></td>
+      <td>🛡 Защита +1</td>
+      <td class="num">12</td>
+      <td class="src">🛒 лавка</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Кожаный доспех</span></td>
+      <td>🛡 Защита +3</td>
+      <td class="num">60</td>
+      <td class="src">🛒 лавка</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Кольчуга</span></td>
+      <td>🛡 Защита +6</td>
+      <td class="num">200</td>
+      <td class="src">Скелет <span class="dim">4%</span> · 🛒 лавка · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Чешуйчатый доспех</span></td>
+      <td>🛡 Защита +8</td>
+      <td class="num">380</td>
+      <td class="src">Гарпия <span class="dim">5%</span> · 🛒 лавка</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Латный доспех</span></td>
+      <td>🛡 Защита +12</td>
+      <td class="num">800</td>
+      <td class="src">Огр <span class="dim">5%</span> · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Зачарованная мантия</span></td>
+      <td>🛡 Защита +16</td>
+      <td class="num">2500</td>
+      <td class="src">Горгулья <span class="dim">4%</span> · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Доспех из драконьей чешуи</span></td>
+      <td>🛡 Защита +24</td>
+      <td class="num">9000</td>
+      <td class="src">🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Костяной доспех</span></td>
+      <td>🛡 Защита +30</td>
+      <td class="num">14000</td>
+      <td class="src">Костяной рыцарь <span class="dim">4%</span> · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Адская кольчуга</span></td>
+      <td>🛡 Защита +37</td>
+      <td class="num">23000</td>
+      <td class="src">Магмовый голем <span class="dim">4%</span> · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Ледниковая броня</span></td>
+      <td>🛡 Защита +45</td>
+      <td class="num">36000</td>
+      <td class="src">Ледяная тень <span class="dim">4%</span> · Ледяная виверна <span class="dim">4%</span> · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Латы Повелителя драконов</span></td>
+      <td>🛡 Защита +54</td>
+      <td class="num">60000</td>
+      <td class="src">Древний дракон <span class="dim">3%</span> · 🐲 босс (топ-3)</td>
+    </tr></tbody></table></div>
+    <h3>🧪 Зелья</h3><div class="tw"><table><thead><tr><th>Предмет</th><th>Характеристика</th><th>🪙 Цена</th><th>Где добыть</th></tr></thead><tbody>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Малое зелье лечения</span></td>
+      <td>❤️ Лечит 30</td>
+      <td class="num">10</td>
+      <td class="src">Лесной волк <span class="dim">10%</span> · Дикий кабан <span class="dim">10%</span> · 🛒 лавка</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Среднее зелье лечения</span></td>
+      <td>❤️ Лечит 90</td>
+      <td class="num">35</td>
+      <td class="src">Пещерный тролль <span class="dim">15%</span> · Горный волк <span class="dim">15%</span> · 🛒 лавка · ⚗️ алхимик · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Большое зелье лечения</span></td>
+      <td>❤️ Лечит 250</td>
+      <td class="num">110</td>
+      <td class="src">Болотная ведьма <span class="dim">12%</span> · Огр <span class="dim">15%</span> · Упырь склепа <span class="dim">8%</span> · Прислужник лича <span class="dim">12%</span> · 🛒 лавка · ⚗️ алхимик · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Великое зелье лечения</span></td>
+      <td>❤️ Лечит 600</td>
+      <td class="num">300</td>
+      <td class="src">Огненный бес <span class="dim">5%</span> · Морозный волк <span class="dim">6%</span> · Драконий жрец <span class="dim">10%</span> · 🛒 лавка · ⚗️ алхимик · 🐲 босс (топ-3)</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Зелье силы</span></td>
+      <td>+25% атаки на 5 боёв <span class="dim">(кроме арены)</span></td>
+      <td class="num">60</td>
+      <td class="src">🛒 лавка · ⚗️ алхимик</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Зелье каменной кожи</span></td>
+      <td>+25% защиты на 5 боёв <span class="dim">(кроме арены)</span></td>
+      <td class="num">60</td>
+      <td class="src">🛒 лавка · ⚗️ алхимик</td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Зелье ярости</span></td>
+      <td>шанс крита 25% на 5 боёв <span class="dim">(кроме арены)</span></td>
+      <td class="num">90</td>
+      <td class="src">🛒 лавка · ⚗️ алхимик</td>
+    </tr></tbody></table></div>
+    <h3>📦 Материалы</h3><div class="tw"><table><thead><tr><th>Предмет</th><th>Характеристика</th><th>🪙 Цена</th><th>Где добыть</th></tr></thead><tbody>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span></td>
+      <td>—</td>
+      <td class="num">40</td>
+      <td class="src">Лесной волк <span class="dim">2%</span> · Дикий кабан <span class="dim">2%</span> · Лесной паук <span class="dim">2%</span> · Гоблин-разведчик <span class="dim">2%</span> · Пещерная летучая мышь <span class="dim">3%</span> · Гоблин-воин <span class="dim">3%</span> · Скелет <span class="dim">3%</span> · Пещерный тролль <span class="dim">3%</span> · Гигантская пиявка <span class="dim">3%</span> · Упырь <span class="dim">3%</span> · Болотная ведьма <span class="dim">3%</span> · Болотный ужас <span class="dim">3%</span> · Горный волк <span class="dim">4%</span> · Гарпия <span class="dim">4%</span> · Каменный голем <span class="dim">4%</span> · Огр <span class="dim">4%</span> · Проклятый рыцарь <span class="dim">5%</span> · Призрак <span class="dim">5%</span> · Горгулья <span class="dim">5%</span> · Лорд-вампир <span class="dim">5%</span> · Упырь склепа <span class="dim">6%</span> · Костяной рыцарь <span class="dim">6%</span> · Могильный призрак <span class="dim">6%</span> · Прислужник лича <span class="dim">6%</span> · Пепельная гончая <span class="dim">7%</span> · Огненный бес <span class="dim">7%</span> · Магмовый голем <span class="dim">7%</span> · Пламенный джинн <span class="dim">7%</span> · Морозный волк <span class="dim">8%</span> · Ледяная тень <span class="dim">8%</span> · Снежный тролль <span class="dim">8%</span> · Ледяная виверна <span class="dim">8%</span> · Сталкер разлома <span class="dim">10%</span> · Юный дрейк <span class="dim">10%</span> · Драконий жрец <span class="dim">10%</span> · Древний дракон <span class="dim">12%</span> · ⚗️ алхимик · 🐲 босс (топ-3)<div class="use">→ ⚒️ заточка у кузнеца</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Волчья шкура</span></td>
+      <td>—</td>
+      <td class="num">6</td>
+      <td class="src">Лесной волк <span class="dim">45%</span> · Горный волк <span class="dim">60%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Клык кабана</span></td>
+      <td>—</td>
+      <td class="num">7</td>
+      <td class="src">Дикий кабан <span class="dim">40%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Паучий шёлк</span></td>
+      <td>—</td>
+      <td class="num">14</td>
+      <td class="src">Лесной паук <span class="dim">35%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Ухо гоблина</span></td>
+      <td>—</td>
+      <td class="num">5</td>
+      <td class="src">Гоблин-разведчик <span class="dim">50%</span> · Гоблин-воин <span class="dim">50%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Крыло летучей мыши</span></td>
+      <td>—</td>
+      <td class="num">8</td>
+      <td class="src">Пещерная летучая мышь <span class="dim">50%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Костяная пыль</span></td>
+      <td>—</td>
+      <td class="num">18</td>
+      <td class="src">Скелет <span class="dim">45%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Шкура тролля</span></td>
+      <td>—</td>
+      <td class="num">60</td>
+      <td class="src">Пещерный тролль <span class="dim">40%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Слизь пиявки</span></td>
+      <td>—</td>
+      <td class="num">10</td>
+      <td class="src">Гигантская пиявка <span class="dim">50%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Коготь упыря</span></td>
+      <td>—</td>
+      <td class="num">25</td>
+      <td class="src">Упырь <span class="dim">45%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Болотная эссенция</span></td>
+      <td>—</td>
+      <td class="num">70</td>
+      <td class="src">Болотная ведьма <span class="dim">35%</span> · Болотный ужас <span class="dim">50%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Перо гарпии</span></td>
+      <td>—</td>
+      <td class="num">30</td>
+      <td class="src">Гарпия <span class="dim">50%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Ядро голема</span></td>
+      <td>—</td>
+      <td class="num">90</td>
+      <td class="src">Каменный голем <span class="dim">35%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Зуб огра</span></td>
+      <td>—</td>
+      <td class="num">35</td>
+      <td class="src">Огр <span class="dim">50%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Проклятая эмблема</span></td>
+      <td>—</td>
+      <td class="num">120</td>
+      <td class="src">Проклятый рыцарь <span class="dim">45%</span> · Призрак <span class="dim">50%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Клык вампира</span></td>
+      <td>—</td>
+      <td class="num">250</td>
+      <td class="src">Лорд-вампир <span class="dim">40%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Осколок кристалла</span></td>
+      <td>—</td>
+      <td class="num">300</td>
+      <td class="src">Горгулья <span class="dim">30%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#e8a755">🟠 Древняя реликвия</span></td>
+      <td>—</td>
+      <td class="num">1000</td>
+      <td class="src">Лорд-вампир <span class="dim">2%</span></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#c9c4b8">⚪️ Могильный прах</span></td>
+      <td>—</td>
+      <td class="num">22</td>
+      <td class="src">Упырь склепа <span class="dim">50%</span> · Костяной рыцарь <span class="dim">40%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Кость лича</span></td>
+      <td>—</td>
+      <td class="num">45</td>
+      <td class="src">Костяной рыцарь <span class="dim">25%</span> · Могильный призрак <span class="dim">45%</span> · Прислужник лича <span class="dim">50%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Тлеющий осколок</span></td>
+      <td>—</td>
+      <td class="num">60</td>
+      <td class="src">Пепельная гончая <span class="dim">50%</span> · Огненный бес <span class="dim">45%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Рог демона</span></td>
+      <td>—</td>
+      <td class="num">110</td>
+      <td class="src">Огненный бес <span class="dim">20%</span> · Магмовый голем <span class="dim">35%</span> · Пламенный джинн <span class="dim">45%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#8fc97a">🟢 Вечный лёд</span></td>
+      <td>—</td>
+      <td class="num">90</td>
+      <td class="src">Морозный волк <span class="dim">50%</span> · Ледяная тень <span class="dim">45%</span> · Снежный тролль <span class="dim">40%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Чешуя виверны</span></td>
+      <td>—</td>
+      <td class="num">160</td>
+      <td class="src">Ледяная виверна <span class="dim">50%</span> · Юный дрейк <span class="dim">30%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#7aa8e0">🔵 Драконья кровь</span></td>
+      <td>—</td>
+      <td class="num">220</td>
+      <td class="src">Сталкер разлома <span class="dim">40%</span> · Юный дрейк <span class="dim">45%</span> · Древний дракон <span class="dim">50%</span><div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr>
+    <tr>
+      <td><span class="item" style="color:#bd8ce0">🟣 Кристалл разлома</span></td>
+      <td>—</td>
+      <td class="num">400</td>
+      <td class="src">Сталкер разлома <span class="dim">12%</span> · Драконий жрец <span class="dim">30%</span> · Древний дракон <span class="dim">25%</span> · 🐲 босс (топ-3)<div class="use">→ ⚗️ рецепты алхимика</div></td>
+    </tr></tbody></table></div></section>
+<section id="smith" class="">
+    <p>Кузнец на рыночной площади точит экипированное оружие и броню — до <b>+12</b>. Каждый уровень заточки даёт <b>+4%</b> к характеристике предмета (минимум +1 за каждые 3 уровня).</p>
+    <p>Стоимость попытки: <b>серебро</b> (12% цены предмета × целевой уровень) + <b>самоцветы</b> 💎.</p>
+    <p>⚠️ До +6 — безопасно. С +7 провал снижает заточку на 1 уровень (серебро и самоцветы сгорают).</p>
+    <div class="tw"><table><thead><tr><th>Заточка</th><th>💎 Самоцветы</th><th>🎯 Шанс</th><th>При провале</th></tr></thead><tbody><tr><td>+1</td><td class="num">1</td><td class="num">100%</td><td>—</td></tr><tr><td>+2</td><td class="num">1</td><td class="num">100%</td><td>—</td></tr><tr><td>+3</td><td class="num">1</td><td class="num">100%</td><td>—</td></tr><tr><td>+4</td><td class="num">2</td><td class="num">100%</td><td>—</td></tr><tr><td>+5</td><td class="num">2</td><td class="num">100%</td><td>—</td></tr><tr><td>+6</td><td class="num">2</td><td class="num">100%</td><td>—</td></tr><tr><td>+7</td><td class="num">3</td><td class="num">80%</td><td><span class="warn">−1 уровень</span></td></tr><tr><td>+8</td><td class="num">3</td><td class="num">70%</td><td><span class="warn">−1 уровень</span></td></tr><tr><td>+9</td><td class="num">3</td><td class="num">60%</td><td><span class="warn">−1 уровень</span></td></tr><tr><td>+10</td><td class="num">4</td><td class="num">50%</td><td><span class="warn">−1 уровень</span></td></tr><tr><td>+11</td><td class="num">4</td><td class="num">40%</td><td><span class="warn">−1 уровень</span></td></tr><tr><td>+12</td><td class="num">4</td><td class="num">30%</td><td><span class="warn">−1 уровень</span></td></tr></tbody></table></div></section>
+<section id="alchemy" class=""><p>Алхимик на рыночной площади варит зелья из трофеев ваших охот — дешевле, чем покупать готовые в лавке. Боевые зелья действуют указанное число боёв (заряд тратится при входе в бой, на арене баффы отключены).</p><div class="grid"><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#8fc97a">🟢 Зелье силы</span></h3>
+      <p class="dim">+25% атаки на 5 боёв <span class="dim">(кроме арены)</span></p>
+      <p><b>Ингредиенты:</b><br><span class="item" style="color:#c9c4b8">⚪️ Волчья шкура</span> ×2<br><span class="item" style="color:#c9c4b8">⚪️ Клык кабана</span> ×1</p>
+      <p>💰 Работа: <b>25 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#8fc97a">🟢 Зелье каменной кожи</span></h3>
+      <p class="dim">+25% защиты на 5 боёв <span class="dim">(кроме арены)</span></p>
+      <p><b>Ингредиенты:</b><br><span class="item" style="color:#8fc97a">🟢 Костяная пыль</span> ×2<br><span class="item" style="color:#c9c4b8">⚪️ Крыло летучей мыши</span> ×2</p>
+      <p>💰 Работа: <b>25 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#7aa8e0">🔵 Зелье ярости</span></h3>
+      <p class="dim">шанс крита 25% на 5 боёв <span class="dim">(кроме арены)</span></p>
+      <p><b>Ингредиенты:</b><br><span class="item" style="color:#8fc97a">🟢 Паучий шёлк</span> ×1<br><span class="item" style="color:#8fc97a">🟢 Коготь упыря</span> ×1</p>
+      <p>💰 Работа: <b>40 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#8fc97a">🟢 Среднее зелье лечения</span></h3>
+      <p class="dim">❤️ Лечит 90</p>
+      <p><b>Ингредиенты:</b><br><span class="item" style="color:#c9c4b8">⚪️ Слизь пиявки</span> ×2</p>
+      <p>💰 Работа: <b>10 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#7aa8e0">🔵 Большое зелье лечения</span></h3>
+      <p class="dim">❤️ Лечит 250</p>
+      <p><b>Ингредиенты:</b><br><span class="item" style="color:#7aa8e0">🔵 Болотная эссенция</span> ×1<br><span class="item" style="color:#7aa8e0">🔵 Шкура тролля</span> ×1</p>
+      <p>💰 Работа: <b>30 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#bd8ce0">🟣 Великое зелье лечения</span></h3>
+      <p class="dim">❤️ Лечит 600</p>
+      <p><b>Ингредиенты:</b><br><span class="item" style="color:#7aa8e0">🔵 Драконья кровь</span> ×1<br><span class="item" style="color:#8fc97a">🟢 Вечный лёд</span> ×1</p>
+      <p>💰 Работа: <b>60 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#8fc97a">🟢 Зелье силы</span> ×3</h3>
+      <p class="dim">+25% атаки на 5 боёв <span class="dim">(кроме арены)</span></p>
+      <p><b>Ингредиенты:</b><br><span class="item" style="color:#c9c4b8">⚪️ Могильный прах</span> ×2<br><span class="item" style="color:#7aa8e0">🔵 Рог демона</span> ×1</p>
+      <p>💰 Работа: <b>60 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#8fc97a">🟢 Зелье каменной кожи</span> ×3</h3>
+      <p class="dim">+25% защиты на 5 боёв <span class="dim">(кроме арены)</span></p>
+      <p><b>Ингредиенты:</b><br><span class="item" style="color:#8fc97a">🟢 Кость лича</span> ×2<br><span class="item" style="color:#8fc97a">🟢 Вечный лёд</span> ×1</p>
+      <p>💰 Работа: <b>60 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#7aa8e0">🔵 Зелье ярости</span> ×3</h3>
+      <p class="dim">шанс крита 25% на 5 боёв <span class="dim">(кроме арены)</span></p>
+      <p><b>Ингредиенты:</b><br><span class="item" style="color:#8fc97a">🟢 Тлеющий осколок</span> ×2<br><span class="item" style="color:#7aa8e0">🔵 Чешуя виверны</span> ×1</p>
+      <p>💰 Работа: <b>90 🪙</b></p>
+    </div></div><div class="card"><div class="cbody">
+      <h3><span class="item" style="color:#7aa8e0">🔵 Самоцвет</span> ×2</h3>
+      <p class="dim">—</p>
+      <p><b>Ингредиенты:</b><br><span class="item" style="color:#bd8ce0">🟣 Кристалл разлома</span> ×1</p>
+      <p>💰 Работа: <b>100 🪙</b></p>
+    </div></div></div></section>
+<section id="basics" class=""><div class="card"><div class="cbody"><h3>✨ Опыт и уровни</h3><p>Опыт дают победы над монстрами, задания и мировой босс. За каждый уровень: +3 очка характеристик (⚔️ сила / 🛡 защита / ❤️ живучесть) и +5 к макс. HP. Здоровье полностью восстанавливается при новом уровне.</p></div></div><div class="card"><div class="cbody"><h3>❤️ Здоровье</h3><p>Вне боя HP восстанавливается само: 1 HP каждые 20 секунд. Лекарь в деревне лечит полностью за серебро (5 🪙 × ваш уровень).</p></div></div><div class="card"><div class="cbody"><h3>💀 Поражение</h3><p>Проигрыш в PvE: вы приходите в себя в деревне с 30% HP и теряете 10% серебра. На арене здоровье не тратится — бои тренировочные.</p></div></div><div class="card"><div class="cbody"><h3>🏟 Арена</h3><p>PvP по рейтингу (±5 уровней): победа +25 рейтинга и серебро, поражение −20. Баффы алхимика на арене не действуют.</p></div></div><div class="card"><div class="cbody"><h3>🐲 Мировой босс</h3><p>Общий враг всех игроков. Награда делится пропорционально нанесённому урону, топ-3 получают редкие трофеи и самоцветы. Новый босс — через 30 минут после победы.</p></div></div><div class="card"><div class="cbody"><h3>💰 Торговля</h3><p>Лавка покупает вещи за половину цены. На рыночной площади можно выставить лот для других игроков — цену выбираете сами.</p></div></div><div class="card"><div class="cbody"><h3>💡 Идеи</h3><p>Кнопка «Идея» в профиле — предложения попадают напрямую разработчикам. Лучшие идеи игроков уже в игре!</p></div></div>
+    <h3>✨ Опыт до следующего уровня</h3>
+    <div class="tw"><table class="narrow"><thead><tr><th>Уровень</th><th>Нужно опыта</th></tr></thead><tbody><tr><td class="num">1</td><td class="num">100</td></tr><tr><td class="num">2</td><td class="num">263</td></tr><tr><td class="num">3</td><td class="num">465</td></tr><tr><td class="num">5</td><td class="num">951</td></tr><tr><td class="num">8</td><td class="num">1 837</td></tr><tr><td class="num">10</td><td class="num">2 511</td></tr><tr><td class="num">15</td><td class="num">4 431</td></tr><tr><td class="num">20</td><td class="num">6 628</td></tr><tr><td class="num">25</td><td class="num">9 059</td></tr><tr><td class="num">30</td><td class="num">11 694</td></tr><tr><td class="num">40</td><td class="num">17 493</td></tr><tr><td class="num">50</td><td class="num">23 908</td></tr></tbody></table></div></section>
+<footer>⚔️ Обновлено автоматически из игровых данных</footer>
+</div>
+<script>
+const tabs=document.querySelectorAll('nav button');
+const secs=document.querySelectorAll('section');
+tabs.forEach(b=>b.addEventListener('click',()=>{
+  tabs.forEach(x=>x.classList.remove('on'));secs.forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');document.getElementById(b.dataset.t).classList.add('on');
+  window.scrollTo({top:0});
+}));
+const q=document.getElementById('itemSearch');
+if(q)q.addEventListener('input',()=>{
+  const v=q.value.trim().toLowerCase();
+  document.querySelectorAll('#items tbody tr').forEach(tr=>{
+    tr.style.display=!v||tr.textContent.toLowerCase().includes(v)?'':'none';
+  });
+});
+if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();
+  try{Telegram.WebApp.setHeaderColor('#16100a');Telegram.WebApp.setBackgroundColor('#16100a');}catch(e){}}
+</script>
+</body>
+</html>
